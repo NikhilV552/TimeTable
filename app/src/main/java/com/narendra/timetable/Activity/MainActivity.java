@@ -1,9 +1,11 @@
-package com.narendra.timetable;
+package com.narendra.timetable.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.narendra.timetable.R;
 
 public class MainActivity extends AppCompatActivity {
 

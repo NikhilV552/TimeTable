@@ -2,16 +2,18 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     app:cardCornerRadius="5dp"
     android:layout_margin="5dp">
     <TextView
+        android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
+        android:background="@color/design_default_color_primary_dark"
         android:textAlignment="center"/>
 
 </androidx.cardview.widget.CardView>

@@ -80,10 +80,10 @@
              android:layout_gravity="center"
              android:layout_margin="10dp"
              />
-
-
      </LinearLayout>
         <GridView
+            android:id="@+id/gridView"
+            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numColumns="8"

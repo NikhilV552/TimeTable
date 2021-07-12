@@ -26,14 +26,13 @@ public class TimeTableHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        String SQL_CREATE_USER_TABLE = "CREATE TABLE " + TableEntry.TABLE_NAME + " ("
+        String SQL_CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + TableEntry.TABLE_NAME + " ("
                 + TableEntry.COLUMN_TIMETABLE_NAME+ " VARCHAR, "
                 + TableEntry.COLUMN_NO_OF_PERIODS_NUMBER + " INTEGER, "
                 + TableEntry.COLUMN_NO_OF_ROWS + " INTEGER);";
 
         // Execute the SQL statement
         sqLiteDatabase.execSQL(SQL_CREATE_USER_TABLE);
-
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.narendra.timetable.Adapter.TimeTableAdapter;
 import com.narendra.timetable.Model.Content;
 import com.narendra.timetable.R;
 
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        valueGV=findViewById(R.id.gridView);
+//        valueGV=findViewById(R.id.gridView);
         ArrayList<Content> contentArrayList=new ArrayList<Content>();
         contentArrayList.add(new Content("SSC"));
         contentArrayList.add(new Content("CGV"));
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         contentArrayList.add(new Content("Sruthiba"));
         contentArrayList.add(new Content("Sruthiba"));
         contentArrayList.add(new Content("Nethravathy"));
-        TimeTableAdapter adapter=new TimeTableAdapter(this,contentArrayList);
-        valueGV.setAdapter(adapter);
-    }
+//        TimeTableAdapter adapter=new TimeTableAdapter(this,contentArrayList);
+//        valueGV.setAdapter(adapter);
+  }
 }

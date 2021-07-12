@@ -6,7 +6,9 @@ import android.widget.GridView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.narendra.timetable.Model.Content;
+import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
+import com.narendra.timetable.exampleDemo.GenerateModelData;
 
 import java.util.ArrayList;
 
@@ -37,5 +39,7 @@ public class MainActivity extends AppCompatActivity {
         contentArrayList.add(new Content("Nethravathy"));
 //        TimeTableAdapter adapter=new TimeTableAdapter(this,contentArrayList);
 //        valueGV.setAdapter(adapter);
+        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE 1",3,8);
+        System.out.println(model1);
   }
 }

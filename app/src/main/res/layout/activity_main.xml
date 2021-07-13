@@ -26,67 +26,74 @@
                     android:layout_width="match_parent"
                     android:layout_height="108dp"/>
 
-
-                <TextView
-                    android:id="@+id/monday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/recyclerDay"
+                    android:layout_height="match_parent"
                     android:layout_below="@+id/recyclerPeriod"
-                    android:padding="5dp"
-                    android:text="MONDAY"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+                    />
 
 
-                <TextView
-                    android:id="@+id/tuesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/monday"
-                    android:padding="5dp"
-                    android:text="TUESDAY"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/monday"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/recyclerPeriod"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="MONDAY"-->
+<!--                    android:textColor="#ffffff"-->
+<!--                    android:textSize="18sp" />-->
 
-                <TextView
-                    android:id="@+id/wednesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tuesday"
-                    android:padding="5dp"
-                    android:text="WEDNESDAY"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/thursday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/wednesday"
-                    android:padding="5dp"
-                    android:text="THURSDAY"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tuesday"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/monday"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="TUESDAY"-->
+<!--                    android:textColor="#ffffff"-->
+<!--                    android:textSize="18sp" />-->
 
-                <TextView
-                    android:id="@+id/friday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/thursday"
-                    android:padding="5dp"
-                    android:text="FRIDAY"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/wednesday"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/tuesday"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="WEDNESDAY"-->
+<!--                    android:textColor="#ffffff"-->
+<!--                    android:textSize="18sp" />-->
 
-                <TextView
-                    android:id="@+id/saturday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/friday"
-                    android:padding="5dp"
-                    android:text="SATURDAY"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/thursday"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/wednesday"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="THURSDAY"-->
+<!--                    android:textColor="#ffffff"-->
+<!--                    android:textSize="18sp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/friday"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/thursday"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="FRIDAY"-->
+<!--                    android:textColor="#ffffff"-->
+<!--                    android:textSize="18sp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/saturday"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/friday"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="SATURDAY"-->
+<!--                    android:textColor="#ffffff"-->
+<!--                    android:textSize="18sp" />-->
 
             </RelativeLayout>
 

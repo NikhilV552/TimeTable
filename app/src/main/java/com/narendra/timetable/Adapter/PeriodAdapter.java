@@ -1,0 +1,67 @@
+package com.narendra.timetable.Adapter;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.narendra.timetable.Model.PeriodTimeModel;
+import com.narendra.timetable.R;
+
+import java.util.ArrayList;
+
+public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder> {
+    private ArrayList<PeriodTimeModel> localDataSet=new ArrayList<PeriodTimeModel>();
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_period_single_row,parent,false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if(position==0) {
+            holder.getPeriod().setText("PERIOD");
+        }
+        else{
+            holder.getPeriod().setText("PERIOD "+position);
+        }
+        holder.getFrom().setText(localDataSet.get(position).getFrom().toString());
+        holder.getFrom().setText(localDataSet.get(position).getTo().toString());
+    }
+
+    @Override
+    public int getItemCount() {
+        return localDataSet.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        private final TextView period;
+        private final TextView from;
+        private final TextView to;
+
+        public ViewHolder(View view){
+            super(view);
+            period=(TextView)view.findViewById(R.id.period);
+            from=(TextView)view.findViewById(R.id.from);
+            to=(TextView)view.findViewById(R.id.to);
+        }
+        public TextView getPeriod(){
+            return period;
+        }
+        public TextView getFrom(){
+            return from;
+        }
+        public TextView getTo(){
+            return to;
+        }
+    }
+    public PeriodAdapter(ArrayList<PeriodTimeModel> dataSet){
+        localDataSet=dataSet;
+    }
+}

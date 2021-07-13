@@ -18,22 +18,19 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#0000ff">
+                android:background="@color/design_default_color_secondary">
 
-                <TextView
-                    android:id="@+id/period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="PERIOD"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerPeriod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
 
                 <TextView
                     android:id="@+id/monday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/period"
+                    android:layout_below="@+id/recyclerPeriod"
                     android:padding="5dp"
                     android:text="MONDAY"
                     android:textColor="#ffffff"
@@ -94,7 +91,7 @@
                     android:id="@+id/period1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period"
+                    android:layout_toRightOf="@+id/recyclerPeriod"
                     android:padding="5dp"
                     android:text="PERIOD1"
                     android:textColor="#FFFFFF"

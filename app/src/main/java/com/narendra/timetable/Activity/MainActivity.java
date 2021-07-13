@@ -1,17 +1,21 @@
 package com.narendra.timetable.Activity;
 
 import android.os.Bundle;
-import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.narendra.timetable.Adapter.PeriodAdapter;
+import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
 import com.narendra.timetable.exampleDemo.GenerateModelData;
 
-public class MainActivity extends AppCompatActivity {
-    GridView valueGV;
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity {
+    RecyclerView recyclerPeriod;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +40,17 @@ public class MainActivity extends AppCompatActivity {
 //        contentArrayList.add(new Content("Nethravathy"));
 //        TimeTableAdapter adapter=new TimeTableAdapter(this,contentArrayList);
 //        valueGV.setAdapter(adapter);
+            recyclerPeriod=findViewById(R.id.recyclerPeriod);
+
         TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE 1",3,8);
         System.out.println(model1);
-        model1.getPeriodTimes();
+        ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
+        System.out.println(period.size());
+        GridLayoutManager layoutManager=new GridLayoutManager(this,period.size());
+        PeriodAdapter periodAdapter=new PeriodAdapter(period);
+        recyclerPeriod.setLayoutManager(layoutManager);
+        recyclerPeriod.setAdapter(periodAdapter);
+
+
   }
 }

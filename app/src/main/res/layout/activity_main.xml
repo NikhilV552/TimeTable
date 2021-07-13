@@ -22,8 +22,9 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerPeriod"
+                    android:layout_margin="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="108dp"/>
 
 
                 <TextView
@@ -86,87 +87,6 @@
                     android:text="SATURDAY"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/recyclerPeriod"
-                    android:padding="5dp"
-                    android:text="PERIOD1"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period1"
-                    android:padding="5dp"
-                    android:text="PERIOD2"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period2"
-                    android:padding="5dp"
-                    android:text="PERIOD3"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period3"
-                    android:padding="5dp"
-                    android:text="PERIOD4"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period4"
-                    android:padding="5dp"
-                    android:text="PERIOD5"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period5"
-                    android:padding="5dp"
-                    android:text="PERIOD6"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period6"
-                    android:padding="5dp"
-                    android:text="PERIOD7"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/period8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/period7"
-                    android:padding="5dp"
-                    android:text="PERIOD8"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
 
             </RelativeLayout>
 

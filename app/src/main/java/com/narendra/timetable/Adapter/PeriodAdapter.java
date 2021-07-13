@@ -27,12 +27,14 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(position==0) {
             holder.getPeriod().setText("PERIOD");
+            holder.getFrom().setText("FROM");
+            holder.getTo().setText("TO");
         }
         else{
             holder.getPeriod().setText("PERIOD "+position);
+            holder.getFrom().setText(localDataSet.get(position).getFrom().toString());
+            holder.getTo().setText(localDataSet.get(position).getTo().toString());
         }
-        holder.getFrom().setText(localDataSet.get(position).getFrom().toString());
-        holder.getFrom().setText(localDataSet.get(position).getTo().toString());
     }
 
     @Override

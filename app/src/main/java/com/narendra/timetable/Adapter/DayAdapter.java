@@ -31,7 +31,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.getDay().setText(localDays[position]);
-        GridLayoutManager layoutManager=new GridLayoutManager(localContext,localDataSet.size());
+       // System.out.println(localDataSet);
+        //System.out.println(localDataSet.get(localDays[position]).size());
+        GridLayoutManager layoutManager=new GridLayoutManager(localContext,localDataSet.get(localDays[position]).size());
         ColumnAdapter columnAdapter=new ColumnAdapter(localContext,localDataSet.get(localDays[position]));
         holder.getRecyclerColumn().setLayoutManager(layoutManager);
         holder.getRecyclerColumn().setAdapter(columnAdapter);

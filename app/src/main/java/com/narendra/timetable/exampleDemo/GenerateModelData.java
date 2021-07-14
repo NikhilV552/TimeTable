@@ -24,7 +24,7 @@ public class GenerateModelData {
             timeTableValues.put(days[i], rowValues);
             for(int j=0;j<numberOfPeriods;j++) {
                 for(int r=0;r<numberOfRows;r++) {
-                    rowValues.get(j).getRowValues().set(r, "ROW D"+i+" P"+j+" RW"+r);
+                    rowValues.get(j).getRowValues().set(r, tableName+" ROW D"+i+" P"+j+" RW"+r);
                 }
             }
 

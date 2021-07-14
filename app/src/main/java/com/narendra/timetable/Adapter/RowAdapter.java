@@ -25,6 +25,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        System.out.println(localDataSet.get(position));
         holder.getValue().setText(localDataSet.get(position));
     }
 
@@ -34,17 +35,18 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView value;
+        private final TextView textValue;
 
         public ViewHolder(View view) {
             super(view);
-            value=view.findViewById(R.id.value);
+            textValue=view.findViewById(R.id.value);
 
         }
-        public TextView getValue(){ return value;}
+        public TextView getValue(){ return textValue;}
     }
     public RowAdapter(Context context,ArrayList<String> dataSet){
         localContext=context;
         localDataSet=dataSet;
+//        System.out.println(dataSet);
     }
 }

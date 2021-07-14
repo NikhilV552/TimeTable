@@ -2,14 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_margin="1dp"
+    android:background="#00ff00"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="18dp"
-        android:text="ROW"/>
-
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="Row1"
+        android:textColor="@color/white"
+        />
 </LinearLayout>

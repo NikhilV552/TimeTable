@@ -28,8 +28,9 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LinearLayoutManager layoutManager=new LinearLayoutManager(localContext);
+        RowAdapter rowAdapter=new RowAdapter(localContext,localDataSet.get(position).getRowValues());
         holder.getRecyclerRow().setLayoutManager(layoutManager);
-
+        holder.getRecyclerRow().setAdapter(rowAdapter);
     }
 
     @Override

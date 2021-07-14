@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.narendra.timetable.Model.RowModel;
@@ -30,9 +30,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-     holder.getDay().setText(localDays[position]);
-     LinearLayoutManager layoutManager=new LinearLayoutManager(localContext);
-
+        holder.getDay().setText(localDays[position]);
+        GridLayoutManager layoutManager=new GridLayoutManager(localContext,localDataSet.size());
+        ColumnAdapter columnAdapter=new ColumnAdapter(localContext,localDataSet.get(localDays[position]));
+        holder.getRecyclerColumn().setLayoutManager(layoutManager);
+        holder.getRecyclerColumn().setAdapter(columnAdapter);
     }
 
     @Override
@@ -42,20 +44,21 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView day;
-     //   private final RecyclerView column;
+        private final RecyclerView column;
 
         public ViewHolder(View view){
             super(view);
             day=view.findViewById(R.id.day);
-       //     column=view.findViewById(R.id.recyclerColumn);
+            column=view.findViewById(R.id.recyclerColumn);
         }
 
+
         public TextView getDay(){ return day;}
-//        public RecyclerView getColumn(){return 0;}
+        public RecyclerView getRecyclerColumn(){return column;}
     }
     public DayAdapter(Context context,String days[], HashMap<String,ArrayList<RowModel>> dataSet){
         localDataSet=dataSet;
         localDays=days;
-//        localContext=context;
+        localContext=context;
     }
 }

@@ -1,5 +1,6 @@
 package com.narendra.timetable.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder> {
     private ArrayList<PeriodTimeModel> localDataSet;
+    private Context localContext;
 
     @NonNull
     @Override
@@ -63,7 +65,8 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
             return to;
         }
     }
-    public PeriodAdapter(ArrayList<PeriodTimeModel> dataSet){
+    public PeriodAdapter(Context context,ArrayList<PeriodTimeModel> dataSet){
         localDataSet=dataSet;
+        localContext=context;
     }
 }

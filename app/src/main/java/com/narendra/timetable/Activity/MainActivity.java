@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.narendra.timetable.Adapter.DayAdapter;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 //        TimeTableAdapter adapter=new TimeTableAdapter(this,contentArrayList);
 //        valueGV.setAdapter(adapter);
             recyclerPeriod=findViewById(R.id.recyclerPeriod);
+            recyclerDay=findViewById(R.id.recyclerDay);
 
         TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE 1",3,8);
         System.out.println(model1);
@@ -54,10 +56,13 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
         period.add(0,initial);
         System.out.println(period.size());
-        GridLayoutManager layoutManager=new GridLayoutManager(this,period.size());
+        GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
         PeriodAdapter periodAdapter=new PeriodAdapter(this,period);
-        recyclerPeriod.setLayoutManager(layoutManager);
+        recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
+        LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
         DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues);
-  }
+        recyclerDay.setLayoutManager(dayLayoutManager);
+        recyclerDay.setAdapter(dayAdapter);
+    }
 }

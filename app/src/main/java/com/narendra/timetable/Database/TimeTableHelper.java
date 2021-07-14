@@ -3,6 +3,7 @@ package com.narendra.timetable.Database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import static com.narendra.timetable.Database.TineTableContract.*;
 
@@ -45,4 +46,8 @@ public class TimeTableHelper extends SQLiteOpenHelper {
         }
 
     }
+
+
+
+
 }

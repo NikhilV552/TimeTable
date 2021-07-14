@@ -12,6 +12,7 @@ import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
 import com.narendra.timetable.exampleDemo.GenerateModelData;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE 1",3,8);
         System.out.println(model1);
+        PeriodTimeModel initial=new PeriodTimeModel(new Time(00000000),new Time(00000000));
         ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
+        period.add(0,initial);
         System.out.println(period.size());
         GridLayoutManager layoutManager=new GridLayoutManager(this,period.size());
         PeriodAdapter periodAdapter=new PeriodAdapter(period);

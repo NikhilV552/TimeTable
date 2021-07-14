@@ -45,6 +45,7 @@ public class TimeTableModel {
     public int getNumberOfRows() {
         return numberOfRows;
     }
+    public String[] getDays(){ return days;}
     public void setNumberOfRows(int numberOfRows) {
         this.numberOfRows = numberOfRows;
     }

@@ -14,7 +14,7 @@ import com.narendra.timetable.R;
 import java.util.ArrayList;
 
 public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder> {
-    private ArrayList<PeriodTimeModel> localDataSet=new ArrayList<PeriodTimeModel>();
+    private ArrayList<PeriodTimeModel> localDataSet;
 
     @NonNull
     @Override

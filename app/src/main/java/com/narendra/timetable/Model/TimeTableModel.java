@@ -93,7 +93,6 @@ public class TimeTableModel {
                 System.out.println();
             }
         }
-
         return result;
     }
 }

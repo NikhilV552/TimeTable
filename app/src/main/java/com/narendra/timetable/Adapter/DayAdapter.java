@@ -25,7 +25,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-     holder.getDay().setText(localDataSet.get(position).getDays().toString());
+     holder.getDay().setText(localDataSet.get(position).getDays()[position]);
     }
 
     @Override

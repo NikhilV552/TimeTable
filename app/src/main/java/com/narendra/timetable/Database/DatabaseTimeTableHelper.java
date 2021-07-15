@@ -26,6 +26,17 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
      */
     private static final int DATABASE_VERSION = 1;
 
+    public int getMaxIndex(){
+        SQLiteDatabase db=this.getWritableDatabase();
+        String query="SELECT MAX("+TimeTableContract.timeTableId+") AS MAXID  FROM "+TimeTableContract.tableName+";";
+        Cursor corsor=db.rawQuery(query,null);
+        if(!corsor.moveToNext()){
+            return 0;
+        }else{
+            return corsor.getInt(corsor.getColumnIndex("MAXID"));
+        }
+    }
+
     public TimeTableModel getTheModelFortheLoadingOfData(String timetableName) {
         //Connection con=DatabaseConnection.getConnection("jdbc:sqlite:E:\\6th_sem\\ADP\\trailDb2.db");
         SQLiteDatabase db=this.getWritableDatabase();
@@ -124,7 +135,8 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
     }
 
     public void insertNewTimeTable(String timetableName,int numberOfPeriods,int numberOfRows,SQLiteDatabase db) throws Exception {
-        String sql="INSERT INTO "+TimeTableContract.tableName+"("+TimeTableContract.timeTableName+","+TimeTableContract.numberOfperiods+","+TimeTableContract.numberOfRows+") VALUES('"+timetableName+"',"+numberOfPeriods+","+numberOfRows+");";
+        int maxid=this.getMaxIndex();
+        String sql="INSERT INTO "+TimeTableContract.tableName+"("+TimeTableContract.timeTableId+","+TimeTableContract.timeTableName+","+TimeTableContract.numberOfperiods+","+TimeTableContract.numberOfRows+") VALUES("+(maxid+1)+",'"+timetableName+"',"+numberOfPeriods+","+numberOfRows+");";
         //PreparedStatement psmt=con.prepareStatement(sql);
         //psmt.clearParameters();
         //psmt.setString(1, timetableName);
@@ -436,7 +448,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS TIMETABLE(_id INTEGER PRIMARY KEY AUTOINCREMENT,TIMETABLENAME VARCHAR(40) UNIQUE,NUMBEROFPERIODAPERDAY INTEGER,NUMBEROFROWS INTEGER);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS TIMETABLE(_id INT PRIMARY KEY AUTOINCREMENT,TIMETABLENAME VARCHAR(40) UNIQUE,NUMBEROFPERIODAPERDAY INTEGER,NUMBEROFROWS INTEGER);");
         db.execSQL("CREATE TABLE IF NOT EXISTS DAYS(DAYID INTEGER PRIMARY KEY,DAYNAME VARCHAR(20));");
         db.execSQL("CREATE TABLE IF NOT EXISTS TIMETABLEROWS(TIMETABLEID INTEGER,ROWNUMBER INTEGER,ROWNAME VARCHAR(20),CONSTRAINT PKTR PRIMARY KEY (TIMETABLEID,ROWNUMBER), " +
                 "CONSTRAINT FKTR FOREIGN KEY (TIMETABLEID) REFERENCES TIMETABLE(_id) ON DELETE CASCADE ) ;");

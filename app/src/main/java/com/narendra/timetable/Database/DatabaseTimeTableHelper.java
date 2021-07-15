@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.RowModel;
@@ -241,6 +242,8 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             insertNewTimeTable(model.getTimeTableName(),model.getNumberOfperiods(),model.getNumberOfRows(),db);
             timetableId=getTimeTableId(model.getTimeTableName(),db);
             System.out.println("TIMETABLEID="+timetableId+" name="+model.getTimeTableName());
+            //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+            System.out.println("timetable name added");
             insertperiodTimes(timetableId,model.getPeriodTimes(),db);
             System.out.println("Successfullt inserted period times");
             insertRownames(timetableId,model.getRowNames(),db);

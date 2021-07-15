@@ -25,7 +25,6 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        System.out.println(localDataSet.get(position));
         holder.getValue().setText(localDataSet.get(position));
     }
 
@@ -47,6 +46,5 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.ViewHolder> {
     public RowAdapter(Context context,ArrayList<String> dataSet){
         localContext=context;
         localDataSet=dataSet;
-//        System.out.println(dataSet);
     }
 }

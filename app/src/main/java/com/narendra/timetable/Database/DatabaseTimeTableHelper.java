@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.RowModel;
@@ -33,6 +32,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
         if(!corsor.moveToNext()){
             return 0;
         }else{
+            System.out.println("MAXID="+corsor.getInt(corsor.getColumnIndex("MAXID")));
             return corsor.getInt(corsor.getColumnIndex("MAXID"));
         }
     }
@@ -136,13 +136,15 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
 
     public void insertNewTimeTable(String timetableName,int numberOfPeriods,int numberOfRows,SQLiteDatabase db) throws Exception {
         int maxid=this.getMaxIndex();
-        String sql="INSERT INTO "+TimeTableContract.tableName+"("+TimeTableContract.timeTableId+","+TimeTableContract.timeTableName+","+TimeTableContract.numberOfperiods+","+TimeTableContract.numberOfRows+") VALUES("+(maxid+1)+",'"+timetableName+"',"+numberOfPeriods+","+numberOfRows+");";
+        //String sql="INSERT INTO "+TimeTableContract.tableName+"("+TimeTableContract.timeTableId+","+TimeTableContract.timeTableName+","+TimeTableContract.numberOfperiods+","+TimeTableContract.numberOfRows+") VALUES("+(maxid+1)+",'"+timetableName+"',"+numberOfPeriods+","+numberOfRows+");";
+        String sql="INSERT INTO TIMETABLE(_ID,TIMETABLENAME,NUMBEROFPERIODAPERDAY,NUMBEROFROWS) VALUES("+(maxid+1)+",'"+timetableName+"',"+numberOfPeriods+","+numberOfRows+");";
         //PreparedStatement psmt=con.prepareStatement(sql);
+        //String sql="INSERT INTO TIMETABLE(_ID,TIMETABLENAME,NUMBEROFPERIODAPERDAY,NUMBEROFROWS) VALUES(1,'TIMETABLE_1',8,3);";
         //psmt.clearParameters();
         //psmt.setString(1, timetableName);
         //psmt.setInt(2, numberOfPeriods);
         //psmt.setInt(3, numberOfRows);
-        db.rawQuery(sql,null);
+        db.execSQL(sql);
     }
 
     public int getTimeTableId(String timetableName,SQLiteDatabase db) {
@@ -448,7 +450,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS TIMETABLE(_id INT PRIMARY KEY AUTOINCREMENT,TIMETABLENAME VARCHAR(40) UNIQUE,NUMBEROFPERIODAPERDAY INTEGER,NUMBEROFROWS INTEGER);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS TIMETABLE(_id INT PRIMARY KEY,TIMETABLENAME VARCHAR(40) UNIQUE,NUMBEROFPERIODAPERDAY INTEGER,NUMBEROFROWS INTEGER);");
         db.execSQL("CREATE TABLE IF NOT EXISTS DAYS(DAYID INTEGER PRIMARY KEY,DAYNAME VARCHAR(20));");
         db.execSQL("CREATE TABLE IF NOT EXISTS TIMETABLEROWS(TIMETABLEID INTEGER,ROWNUMBER INTEGER,ROWNAME VARCHAR(20),CONSTRAINT PKTR PRIMARY KEY (TIMETABLEID,ROWNUMBER), " +
                 "CONSTRAINT FKTR FOREIGN KEY (TIMETABLEID) REFERENCES TIMETABLE(_id) ON DELETE CASCADE ) ;");

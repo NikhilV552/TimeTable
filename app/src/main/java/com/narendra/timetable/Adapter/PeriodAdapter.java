@@ -51,9 +51,9 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
 
         public ViewHolder(View view){
             super(view);
-            period=(TextView)view.findViewById(R.id.period);
-            from=(TextView)view.findViewById(R.id.from);
-            to=(TextView)view.findViewById(R.id.to);
+            period=view.findViewById(R.id.period);
+            from=view.findViewById(R.id.from);
+            to=view.findViewById(R.id.to);
         }
         public TextView getPeriod(){
             return period;

@@ -152,6 +152,27 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
         return -1;
     }
 
+    public int getTimeTableId2(String timetableName) {
+        SQLiteDatabase db=this.getWritableDatabase();
+        String sql="SELECT * FROM "+TimeTableContract.tableName+" WHERE "+TimeTableContract.timeTableName+"='"+timetableName+"' ;";
+        //Statement stmt;
+        try {
+            //stmt=con.createStatement();
+            //psmt = con.prepareStatement(sql);
+            //psmt.clearParameters();
+            //psmt.setString(1, timetableName);
+            Cursor rs=db.rawQuery(sql,null);
+            if(rs.moveToNext()) {
+                return rs.getInt(rs.getColumnIndex(TimeTableContract.timeTableId));
+            }
+            return -1;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public static void insertperiodTimes(int timetableid,ArrayList<PeriodTimeModel> periodTimes,SQLiteDatabase db) throws Exception {
         String sql="INSERT INTO "+TimeTableperiodsContract.tablename+" VALUES(?,?,?,?);";
         //PreparedStatement psmt=con.prepareStatement(sql);
@@ -230,8 +251,8 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
                 insertRowvalues(timetableId,model.getTimeTableValues().get(days[i]),i+1,db);
                 System.out.println("Successfullt inserted values of day="+days[i]);
             }
-            db.endTransaction();
             db.setTransactionSuccessful();
+            db.endTransaction();
             //con.setAutoCommit(true);
             System.out.println("Successfully added the timetable data to dataabse");
 
@@ -430,6 +451,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO DAYS VALUES(4,'THURSDAY')");
         db.execSQL("INSERT INTO DAYS VALUES(5,'FRIDAY')");
         db.execSQL("INSERT INTO DAYS VALUES(6,'SATURDAY')");
+        System.out.println("Database cretaed success");
 
     }
 

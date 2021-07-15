@@ -27,9 +27,11 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+  //      System.out.println(localDataSet.get(position).getRowValues());
         LinearLayoutManager layoutManager=new LinearLayoutManager(localContext);
+        RowAdapter rowAdapter=new RowAdapter(localContext,localDataSet.get(position).getRowValues());
         holder.getRecyclerRow().setLayoutManager(layoutManager);
-
+        holder.getRecyclerRow().setAdapter(rowAdapter);
     }
 
     @Override
@@ -51,5 +53,6 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
     public ColumnAdapter(Context context,ArrayList<RowModel> dataSet){
         localContext=context;
         localDataSet=dataSet;
+      //  System.out.println(localDataSet);
     }
 }

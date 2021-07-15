@@ -49,20 +49,30 @@ public class MainActivity extends AppCompatActivity {
             recyclerPeriod=findViewById(R.id.recyclerPeriod);
             recyclerDay=findViewById(R.id.recyclerDay);
 
-        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE 1",3,8);
-        System.out.println(model1);
+//        DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
+//
+        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_1",3,8);
+//        timeTableHelper.createTable(model1);
+  //      System.out.println(model1);
+  //      int temp=timeTableHelper.getTimeTableId2("TIMETABLE 1");
+    //    Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
         PeriodTimeModel initial=new PeriodTimeModel(new Time(00000000),new Time(00000000));
         ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
         HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
         period.add(0,initial);
-        System.out.println(period.size());
+//        System.out.println(period.size());
         GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
         PeriodAdapter periodAdapter=new PeriodAdapter(this,period);
         recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
+//        for(String i: model1.getDays()){
+//            System.out.println(i);
+//        }
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
         DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
+
+
     }
 }

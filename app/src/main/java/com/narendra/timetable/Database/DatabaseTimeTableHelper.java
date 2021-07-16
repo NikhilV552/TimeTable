@@ -25,6 +25,16 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
      */
     private static final int DATABASE_VERSION = 1;
 
+    public ArrayList<String> getAllTimeTableNamesPresent(){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ArrayList<String> tableNames=new ArrayList<String>();
+        Cursor c=db.rawQuery("SELECT * FROM "+TimeTableContract.tableName+" ;",null);
+        while (c.moveToNext()){
+            tableNames.add(c.getString(c.getColumnIndex(TimeTableContract.timeTableName)));
+        }
+        return tableNames;
+    }
+
     public int getMaxIndex(){
         SQLiteDatabase db=this.getWritableDatabase();
         String query="SELECT MAX("+TimeTableContract.timeTableId+") AS MAXID  FROM "+TimeTableContract.tableName+";";

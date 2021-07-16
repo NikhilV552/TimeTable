@@ -53,11 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
          DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
 //
-        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_2",2,8);
+        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_3",2,8);
         timeTableHelper.createTable(model1);
         System.out.println(model1);
-        int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
-        Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
+        int temp=timeTableHelper.getTimeTableId2("TIMETABLE_3");
+        ArrayList<String> tablenames=timeTableHelper.getAllTimeTableNamesPresent();
+        Toast.makeText(this, "timetableid="+temp+" "+tablenames, Toast.LENGTH_LONG).show();
         PeriodTimeModel initial=new PeriodTimeModel(new Time(00000000),new Time(00000000));
         ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
         HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();

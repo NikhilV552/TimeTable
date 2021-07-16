@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //            System.out.println(i);
 //        }
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
-        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues);
+        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames());
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
 

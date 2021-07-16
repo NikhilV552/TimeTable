@@ -20,6 +20,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
     private HashMap<String,ArrayList<RowModel>> localDataSet;
     private String[] localDays;
     private Context localContext;
+    private ArrayList<String> rownames;
 
     @NonNull
     @Override
@@ -32,7 +33,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.getDay().setText(localDays[position]);
         GridLayoutManager layoutManager=new GridLayoutManager(localContext,localDataSet.get(localDays[position]).size());
-        ColumnAdapter columnAdapter=new ColumnAdapter(localContext,localDataSet.get(localDays[position]));
+        ColumnAdapter columnAdapter=new ColumnAdapter(localContext,localDataSet.get(localDays[position]),rownames);
         holder.getRecyclerColumn().setLayoutManager(layoutManager);
         holder.getRecyclerColumn().setAdapter(columnAdapter);
     }
@@ -56,7 +57,8 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         public TextView getDay(){ return day;}
         public RecyclerView getRecyclerColumn(){return column;}
     }
-    public DayAdapter(Context context,String days[], HashMap<String,ArrayList<RowModel>> dataSet){
+    public DayAdapter(Context context,String days[], HashMap<String,ArrayList<RowModel>> dataSet,ArrayList<String> rowNames){
+        this.rownames=rowNames;
         localDataSet=dataSet;
         localDays=days;
         localContext=context;

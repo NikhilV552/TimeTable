@@ -27,21 +27,26 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(position==0) {
+        if(position==0){
+            holder.getPeriod().setText("PERIODS");
+            holder.getFrom().setText("----");
+            holder.getTo().setText("DAYS");
+        }
+        else if(position==1) {
             holder.getPeriod().setText("PERIOD");
             holder.getFrom().setText("FROM");
             holder.getTo().setText("TO");
         }
         else{
-            holder.getPeriod().setText("PERIOD "+position);
-            holder.getFrom().setText(localDataSet.get(position).getFrom().toString());
-            holder.getTo().setText(localDataSet.get(position).getTo().toString());
+            holder.getPeriod().setText("PERIOD "+(position-1));
+            holder.getFrom().setText(localDataSet.get(position-1).getFrom().toString());
+            holder.getTo().setText(localDataSet.get(position-1).getTo().toString());
         }
     }
 
     @Override
     public int getItemCount() {
-        return localDataSet.size();
+        return localDataSet.size()+2;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

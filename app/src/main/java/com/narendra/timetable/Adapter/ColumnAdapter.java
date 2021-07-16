@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder> {
     private ArrayList<RowModel> localDataSet;
     private Context localContext;
+    private ArrayList<String> rowNames;
 
     @NonNull
     @Override
@@ -28,14 +29,20 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LinearLayoutManager layoutManager=new LinearLayoutManager(localContext);
-        RowAdapter rowAdapter=new RowAdapter(localContext,localDataSet.get(position).getRowValues());
+        RowAdapter rowAdapter=null;
+        if(position==0){
+            rowAdapter = new RowAdapter(localContext, rowNames);
+        }else {
+
+            rowAdapter = new RowAdapter(localContext, localDataSet.get(position-1).getRowValues());
+        }
         holder.getRecyclerRow().setLayoutManager(layoutManager);
         holder.getRecyclerRow().setAdapter(rowAdapter);
     }
 
     @Override
     public int getItemCount() {
-        return localDataSet.size();
+        return localDataSet.size()+1;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -49,7 +56,8 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
             return recyclerRow;
         }
     }
-    public ColumnAdapter(Context context,ArrayList<RowModel> dataSet){
+    public ColumnAdapter(Context context,ArrayList<RowModel> dataSet,ArrayList<String> rowNames){
+        this.rowNames=rowNames;
         localContext=context;
         localDataSet=dataSet;
     }

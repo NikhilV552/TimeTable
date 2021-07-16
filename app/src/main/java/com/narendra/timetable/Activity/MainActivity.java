@@ -12,18 +12,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
-import com.narendra.timetable.Database.DatabaseTimeTableHelper;
-import com.narendra.timetable.Model.PeriodTimeModel;
-import com.narendra.timetable.Model.RowModel;
-import com.narendra.timetable.Model.TimeTableModel;
+import com.narendra.timetable.Fragment.TimeTableFragment;
 import com.narendra.timetable.R;
-import com.narendra.timetable.exampleDemo.GenerateModelData;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     FrameLayout frameLayout;
     NavigationView navigationView;
+//    RelativeLayout progressLayout;
+//    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,54 +42,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         frameLayout = findViewById(R.id.frameLayout);
         navigationView = findViewById(R.id.navigationView);
-
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Timetable");
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout,toolbar,R.string.navigation_open_drawer,R.string.navigation_close_drawer);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()){
-                case R.id.item1:
-                    Toast.makeText(MainActivity.this, "Clicked on item1", Toast.LENGTH_LONG).show();break;
-                case R.id.item2:
-                    Toast.makeText(MainActivity.this, "Clicked on item2", Toast.LENGTH_LONG).show();break;
-                case R.id.item3:
-                    Toast.makeText(MainActivity.this, "Clicked on item3", Toast.LENGTH_LONG).show();break;
-                case R.id.item4:
-                    Toast.makeText(MainActivity.this, "Clicked on item4", Toast.LENGTH_LONG).show();break;
-            }
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return true;
-        });
-
-
-        DatabaseTimeTableHelper timeTableHelper = new DatabaseTimeTableHelper(MainActivity.this);
-        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_2", 2, 8);
-        timeTableHelper.createTable(model1);
-        System.out.println(model1);
-        int temp = timeTableHelper.getTimeTableId2("TIMETABLE_2");
-        Toast.makeText(MainActivity.this, "timetableid=" + temp, Toast.LENGTH_LONG).show();
-        PeriodTimeModel initial = new PeriodTimeModel(new Time(00000000), new Time(00000000));
-        ArrayList<PeriodTimeModel> period = model1.getPeriodTimes();
-        HashMap<String, ArrayList<RowModel>> timeTableValues = model1.getTimeTableValues();
-        period.add(0, initial);
-
-//
-//        GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
-//        PeriodAdapter periodAdapter=new PeriodAdapter(this,period);
-//        recyclerPeriod.setLayoutManager(periodLayoutManager);
-//        recyclerPeriod.setAdapter(periodAdapter);
-
-//
-//        LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
-//        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames());
-//        recyclerDay.setLayoutManager(dayLayoutManager);
-//        recyclerDay.setAdapter(dayAdapter);
+//        progressBar=findViewById(R.id.progressBar);
+//        progressLayout=findViewById(R.id.progressLayout);
 
 
         ArrayList<String> timeTable = new ArrayList<String>();
@@ -107,6 +59,39 @@ public class MainActivity extends AppCompatActivity {
         timeTable.add("TimeTable_10");
         timeTable.add("TimeTable_11");
 
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Timetable");
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout,toolbar,R.string.navigation_open_drawer,R.string.navigation_close_drawer);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.item1:
+//                    progressLayout.setVisibility(View.VISIBLE);
+//                    progressBar.setVisibility(View.VISIBLE);
+                    Toast.makeText(MainActivity.this, "Clicked on item1", Toast.LENGTH_LONG).show();break;
+                case R.id.item2:
+                    Toast.makeText(MainActivity.this, "Clicked on item2", Toast.LENGTH_LONG).show();break;
+                case R.id.item3:
+                    Toast.makeText(MainActivity.this, "Clicked on item3", Toast.LENGTH_LONG).show();break;
+                case R.id.item4:
+                    Toast.makeText(MainActivity.this, "Clicked on item4", Toast.LENGTH_LONG).show();break;
+            }
+//            progressLayout.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            TimeTableFragment timeTableFragment=new TimeTableFragment();
+            FragmentManager fragmentManager=getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frameLayout,timeTableFragment);
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("item1");
+            return true;
+        });
     }
 
     @Override

@@ -2,4 +2,7 @@
     <string name="app_name">TimeTable</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer">Navigation Drawer</string>
+    <string name="navigation_open_drawer">Open navigation drawer</string>
+    <string name="navigation_close_drawer">Close navigation drawer</string>
 </resources>

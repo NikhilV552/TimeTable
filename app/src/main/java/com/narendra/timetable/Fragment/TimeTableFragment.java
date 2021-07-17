@@ -59,7 +59,7 @@ public class TimeTableFragment extends Fragment {
 
 
         GridLayoutManager periodLayoutManager=new GridLayoutManager(getContext(),period.size());
-        PeriodAdapter periodAdapter=new PeriodAdapter(getContext(),period);
+        PeriodAdapter periodAdapter=new PeriodAdapter(getContext(),period,true);
         recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
 

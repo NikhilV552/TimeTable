@@ -1,9 +1,13 @@
 package com.narendra.timetable.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,30 +21,74 @@ import java.util.ArrayList;
 public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder> {
     private ArrayList<PeriodTimeModel> localDataSet;
     private Context localContext;
+    private boolean isEdit;
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_period_single_row,parent,false);
-        return new ViewHolder(view);
+        if(!isEdit) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_period_single_row, parent, false);
+            return new ViewHolder(view,isEdit);
+        }else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_period_single_row_edit, parent, false);
+            return new ViewHolder(view,isEdit);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(position==0){
-            holder.getPeriod().setText("PERIODS");
-            holder.getFrom().setText("----");
-            holder.getTo().setText("DAYS");
+            if(!holder.getIsEdit()) {
+                holder.getPeriod().setText("PERIODS");
+                holder.getFrom().setText("----");
+                holder.getTo().setText("DAYS");
+            }else {
+                holder.getPeriod().setText("PERIODS");
+                holder.getFromEdit().setText("----");
+                holder.getToEdit().setText("DAYS");
+                holder.getFromEdit().setEnabled(false);
+                holder.getToEdit().setEnabled(false);
+            }
         }
         else if(position==1) {
-            holder.getPeriod().setText("PERIOD");
-            holder.getFrom().setText("FROM");
-            holder.getTo().setText("TO");
+            if(holder.isEdit) {
+                holder.getPeriod().setText("PERIOD");
+                holder.getFromEdit().setText("FROM");
+                holder.getToEdit().setText("TO");
+                holder.getFromEdit().setEnabled(false);
+                holder.getToEdit().setEnabled(false);
+            }else {
+                holder.getPeriod().setText("PERIOD");
+                holder.getFrom().setText("FROM");
+                holder.getTo().setText("TO");
+            }
         }
         else{
             holder.getPeriod().setText("PERIOD "+(position-1));
-            holder.getFrom().setText(localDataSet.get(position-1).getFrom().toString());
-            holder.getTo().setText(localDataSet.get(position-1).getTo().toString());
+            if(!holder.getIsEdit()) {
+                holder.getFrom().setText(localDataSet.get(position - 1).getFrom().toString());
+                holder.getTo().setText(localDataSet.get(position - 1).getTo().toString());
+            }else {
+                if(position==localDataSet.size()+1){
+                    holder.getFromEdit().setText(localDataSet.get(localDataSet.size()-1).getFrom().toString());
+                    holder.getToEdit().setText(localDataSet.get(localDataSet.size()-1).getTo().toString());
+                }else {
+                    holder.getFromEdit().setText(localDataSet.get(position - 1).getFrom().toString());
+                    holder.getToEdit().setText(localDataSet.get(position - 1).getTo().toString());
+                    /*holder.getToEdit().addOnAttachStateChangeListener(new TextWatcher(){
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            Log.v("changed",s.toString());
+
+                        }
+                    });*/
+                    Log.v("IN PERIOD ADAPTER", position + "");
+                }
+            }
         }
     }
 
@@ -53,12 +101,27 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
         private final TextView period;
         private final TextView from;
         private final TextView to;
+        private final EditText fromTime;
+        private final EditText toTime;
+        private boolean isEdit;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view,boolean isEdit){
             super(view);
-            period=view.findViewById(R.id.period);
-            from=view.findViewById(R.id.from);
-            to=view.findViewById(R.id.to);
+            this.isEdit=isEdit;
+            if(!isEdit) {
+                period=view.findViewById(R.id.period);
+                from = view.findViewById(R.id.from);
+                to = view.findViewById(R.id.to);
+                fromTime = null;
+                toTime = null;
+
+            }else {
+                from=null;
+                to=null;
+                period=view.findViewById(R.id.periodEdit);
+                fromTime = view.findViewById(R.id.fromEdit);
+                toTime = view.findViewById(R.id.toEdit);
+            }
         }
         public TextView getPeriod(){
             return period;
@@ -69,9 +132,19 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
         public TextView getTo(){
             return to;
         }
+        public EditText getFromEdit(){
+            return  fromTime;
+        }
+        public EditText getToEdit(){
+            return toTime;
+        }
+        public boolean getIsEdit(){
+            return this.isEdit;
+        }
     }
-    public PeriodAdapter(Context context,ArrayList<PeriodTimeModel> dataSet){
+    public PeriodAdapter(Context context,ArrayList<PeriodTimeModel> dataSet,boolean isEdit){
         localDataSet=dataSet;
         localContext=context;
+        this.isEdit=isEdit;
     }
 }

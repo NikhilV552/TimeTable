@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         period.add(0,initial);
 //        System.out.println(period.size());
         GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
-        PeriodAdapter periodAdapter=new PeriodAdapter(this,period);
+        PeriodAdapter periodAdapter=new PeriodAdapter(this,period,true);
         recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
 //        for(String i: model1.getDays()){

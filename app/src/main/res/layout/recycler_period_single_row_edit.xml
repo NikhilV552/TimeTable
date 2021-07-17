@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="100dp"
+    android:layout_height="match_parent"
+    android:background="#ff00"
+    android:gravity="center"
+    android:layout_margin="1dp"
+    android:weightSum="9">
+
+    <TextView
+        android:id="@+id/periodEdit"
+        android:layout_width="match_parent"
+        android:text="PERIOD"
+        android:textSize="12sp"
+        android:layout_weight="3"
+        android:padding="5dp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_height="0dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ffffff"/>
+
+    <EditText
+        android:id="@+id/fromEdit"
+        android:inputType="time"
+        android:layout_width="match_parent"
+        android:hint="FROM"
+        android:textColorHint="#ffffff"
+        android:textSize="12sp"
+        android:padding="5dp"
+        android:layout_weight="3"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_height="0dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ffffff"/>
+
+    <EditText
+        android:id="@+id/toEdit"
+        android:layout_width="match_parent"
+        android:hint="TO"
+        android:inputType="time"
+        android:textSize="12sp"
+        android:padding="5dp"
+        android:textColorHint="#ffffff"
+        android:layout_weight="3"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_height="0dp" />
+
+</LinearLayout>

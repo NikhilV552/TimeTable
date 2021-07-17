@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         //DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
 //
-        model1= GenerateModelData.generateData("TIMETABLE_2",3,5);
+        model1= GenerateModelData.generateData("TIMETABLE_2",4,9);
         //timeTableHelper.createTable(model1);
         System.out.println(model1);
         //int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
@@ -122,21 +122,21 @@ public class MainActivity extends AppCompatActivity {
         PeriodTimeModel first=new PeriodTimeModel(period.get(1).getFrom(),period.get(1).getTo());
         //period.add(0,initial);
 //        System.out.println(period.size());
-        period.add(0,first);
-        period.add(0,initial);
+        //period.add(0,first);
+        //period.add(0,initial);
         System.out.println("Period ArrayList :");
         for(PeriodTimeModel i: period)
             System.out.println(i);
         System.out.println("The End");
-        GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
-        PeriodAdapter periodAdapter=new PeriodAdapter(this,period,false);
+        GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size()+2);
+        PeriodAdapter periodAdapter=new PeriodAdapter(this,period,true);
         recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
 //        for(String i: model1.getDays()){
 //            System.out.println(i);
 //        }
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
-        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames(),false);
+        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames(),true);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
 

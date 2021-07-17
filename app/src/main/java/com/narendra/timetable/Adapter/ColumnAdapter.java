@@ -33,10 +33,10 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
         LinearLayoutManager layoutManager=new LinearLayoutManager(localContext);
         RowAdapter rowAdapter=null;
         if(position==0){
-            rowAdapter = new RowAdapter(localContext, rowNames,isEdit);
+            rowAdapter = new RowAdapter(localContext, rowNames,isEdit,true);
         }else {
 
-            rowAdapter = new RowAdapter(localContext, localDataSet.get(position-1).getRowValues(),isEdit);
+            rowAdapter = new RowAdapter(localContext, localDataSet.get(position-1).getRowValues(),isEdit,false);
             Log.v("ROW ADAPTER",position-1+" finished "+localDataSet.size());
         }
         holder.getRecyclerRow().setLayoutManager(layoutManager);

@@ -30,6 +30,35 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
         </com.google.android.material.appbar.AppBarLayout>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="200dp">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/design_default_color_secondary">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPeriod"
+            android:layout_margin="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recyclerDay"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/recyclerPeriod"
+            />
+        </RelativeLayout>
+        </ScrollView>
+        </HorizontalScrollView>
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="fill_parent"
@@ -44,7 +73,9 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
         app:menu="@menu/menu_drawer"
-        />
+        >
+
+    </com.google.android.material.navigation.NavigationView>
 <!--    <RelativeLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->

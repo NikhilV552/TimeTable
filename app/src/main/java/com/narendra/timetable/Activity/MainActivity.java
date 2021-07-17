@@ -14,12 +14,24 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.narendra.timetable.Adapter.DayAdapter;
+import com.narendra.timetable.Adapter.PeriodAdapter;
+import com.narendra.timetable.Database.DatabaseTimeTableHelper;
 import com.narendra.timetable.Fragment.TimeTableFragment;
+import com.narendra.timetable.Model.PeriodTimeModel;
+import com.narendra.timetable.Model.RowModel;
+import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
+import com.narendra.timetable.exampleDemo.GenerateModelData;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     FrameLayout frameLayout;
     NavigationView navigationView;
+    RecyclerView recyclerPeriod,recyclerDay;
 //    RelativeLayout progressLayout;
 //    ProgressBar progressBar;
 
@@ -35,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         drawerLayout = findViewById(R.id.drawerLayout);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
@@ -92,6 +104,35 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("item1");
             return true;
         });
+
+        recyclerPeriod=findViewById(R.id.recyclerPeriod);
+        recyclerDay=findViewById(R.id.recyclerDay);
+
+        DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
+//
+        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_2",3,8);
+        timeTableHelper.createTable(model1);
+        System.out.println(model1);
+        //int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
+        //1Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
+        PeriodTimeModel initial=new PeriodTimeModel(new Time(00000000),new Time(00000000));
+        ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
+        HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
+        period.add(0,initial);
+//        System.out.println(period.size());
+        GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
+        PeriodAdapter periodAdapter=new PeriodAdapter(this,period);
+        recyclerPeriod.setLayoutManager(periodLayoutManager);
+        recyclerPeriod.setAdapter(periodAdapter);
+//        for(String i: model1.getDays()){
+//            System.out.println(i);
+//        }
+        LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
+        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames());
+        recyclerDay.setLayoutManager(dayLayoutManager);
+        recyclerDay.setAdapter(dayAdapter);
+
+
     }
 
     @Override

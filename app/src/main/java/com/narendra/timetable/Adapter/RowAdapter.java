@@ -1,6 +1,7 @@
 package com.narendra.timetable.Adapter;
 
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,9 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.getValue().setText(localDataSet.get(position));
+        holder.getValue().setSelected(true);
+        //holder.getValue().setMovementMethod(new ScrollingMovementMethod());
+        //holder.getValue().setHorizontallyScrolling(true);
     }
 
     @Override

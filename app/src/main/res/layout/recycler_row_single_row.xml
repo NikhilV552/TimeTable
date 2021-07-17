@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_margin="1dp"
     android:orientation="vertical"
+    android:layout_gravity="center"
     android:background="#00ff00"
     android:layout_height="wrap_content">
 
@@ -11,10 +12,15 @@
         android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:background="#09AB00"
         android:gravity="center"
         android:textAlignment="center"
+        android:scrollHorizontally="true"
+        android:height="24sp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
         android:text="Row1"
         android:textColor="@color/white"
         />

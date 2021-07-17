@@ -32,6 +32,14 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.getDay().setText(localDays[position]);
+        int height;
+        height=rownames.size()*23*2;
+        if(rownames.size()>1){
+            height+=(rownames.size()-1)*1;
+        }else {
+            height+=2;
+        }
+        holder.getDay().setHeight(height);
         GridLayoutManager layoutManager=new GridLayoutManager(localContext,localDataSet.get(localDays[position]).size());
         ColumnAdapter columnAdapter=new ColumnAdapter(localContext,localDataSet.get(localDays[position]),rownames);
         holder.getRecyclerColumn().setLayoutManager(layoutManager);

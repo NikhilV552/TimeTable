@@ -66,6 +66,13 @@
             android:text="log updated text"
             android:onClick="showTimeTablePeriodValues"
             />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="550dp"
+            android:text="UPDATE THE TIMETABLE"
+            android:onClick="updateTheTimeTable"
+            />
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="fill_parent"

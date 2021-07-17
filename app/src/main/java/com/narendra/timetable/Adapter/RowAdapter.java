@@ -21,13 +21,18 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.ViewHolder> {
     private ArrayList<String> localDataSet;
     private Context localContext;
     private boolean isEdit;
+    private boolean isRowNames;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(!isEdit) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_row_single_row, parent, false);
             return new ViewHolder(view,isEdit);
-        }else {
+        }else if(isRowNames){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_row_single_row, parent, false);
+            return new ViewHolder(view,false);
+        }
+        else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_row_single_row_edit, parent, false);
             return new ViewHolder(view,isEdit);
         }
@@ -86,9 +91,10 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.ViewHolder> {
         public TextView getValue(){ return textValue;}
         public EditText getTheEditValue(){return editTextView;}
     }
-    public RowAdapter(Context context,ArrayList<String> dataSet,boolean isEdit){
+    public RowAdapter(Context context,ArrayList<String> dataSet,boolean isEdit,boolean isRowNames){
         this.isEdit=isEdit;
         localContext=context;
         localDataSet=dataSet;
+        this.isRowNames=isRowNames;
     }
 }

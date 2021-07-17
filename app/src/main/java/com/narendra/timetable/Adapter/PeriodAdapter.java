@@ -65,7 +65,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
             }
         }
         else{
-            holder.getPeriod().setText("PERIOD "+(position-2));
+            holder.getPeriod().setText("PERIOD "+(position-1));
             if(!holder.getIsEdit()) {
                 holder.getFrom().setText(localDataSet.get(position).getFrom().toString());
                 holder.getTo().setText(localDataSet.get(position).getTo().toString());
@@ -99,10 +99,10 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                     String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 2).getTo().toString();
                                     //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
                                 }catch(Exception e){
-                                    holder.getToEdit().setText(localDataSet.get(position-1).getTo().toString());
+                                    holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
                                 }
                             }else {
-                                holder.getToEdit().setText(localDataSet.get(position-1).getTo().toString());
+                                holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
                             }
                         }
                     });

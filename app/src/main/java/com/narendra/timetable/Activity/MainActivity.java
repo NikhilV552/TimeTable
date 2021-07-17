@@ -2,10 +2,11 @@ package com.narendra.timetable.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,8 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.narendra.timetable.Adapter.DayAdapter;
 import com.narendra.timetable.Adapter.PeriodAdapter;
-import com.narendra.timetable.Fragment.TimeTableFragment;
 import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.RowModel;
 import com.narendra.timetable.Model.TimeTableModel;
@@ -58,20 +56,6 @@ public class MainActivity extends AppCompatActivity {
 //        progressBar=findViewById(R.id.progressBar);
 //        progressLayout=findViewById(R.id.progressLayout);
 
-
-        ArrayList<String> timeTable = new ArrayList<String>();
-        timeTable.add("TimeTable_1");
-        timeTable.add("TimeTable_2");
-        timeTable.add("TimeTable_3");
-        timeTable.add("TimeTable_4");
-        timeTable.add("TimeTable_5");
-        timeTable.add("TimeTable_6");
-        timeTable.add("TimeTable_7");
-        timeTable.add("TimeTable_8");
-        timeTable.add("TimeTable_9");
-        timeTable.add("TimeTable_10");
-        timeTable.add("TimeTable_11");
-
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Timetable");
@@ -81,38 +65,34 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout,toolbar,R.string.navigation_open_drawer,R.string.navigation_close_drawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()){
-                case R.id.item1:
-//                    progressLayout.setVisibility(View.VISIBLE);
-//                    progressBar.setVisibility(View.VISIBLE);
-                    Toast.makeText(MainActivity.this, "Clicked on item1", Toast.LENGTH_LONG).show();break;
-                case R.id.item2:
-                    Toast.makeText(MainActivity.this, "Clicked on item2", Toast.LENGTH_LONG).show();break;
-                case R.id.item3:
-                    Toast.makeText(MainActivity.this, "Clicked on item3", Toast.LENGTH_LONG).show();break;
-                case R.id.item4:
-                    Toast.makeText(MainActivity.this, "Clicked on item4", Toast.LENGTH_LONG).show();break;
-            }
-//            progressLayout.setVisibility(View.GONE);
-//            progressBar.setVisibility(View.GONE);
-            drawerLayout.closeDrawer(GravityCompat.START);
-            TimeTableFragment timeTableFragment=new TimeTableFragment();
-            FragmentManager fragmentManager=getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayout,timeTableFragment);
-            fragmentTransaction.commit();
-            getSupportActionBar().setTitle("item1");
-            return true;
-        });
+//        navigationView.setNavigationItemSelectedListener(item -> {
+//            switch (item.getItemId()){
+//                case R.id.item1:
+////                    progressLayout.setVisibility(View.VISIBLE);
+////                    progressBar.setVisibility(View.VISIBLE);
+//                    Toast.makeText(MainActivity.this, "Clicked on item1", Toast.LENGTH_LONG).show();break;
+//                case R.id.item2:
+//                    Toast.makeText(MainActivity.this, "Clicked on item2", Toast.LENGTH_LONG).show();break;
+//                case R.id.item3:
+//                    Toast.makeText(MainActivity.this, "Clicked on item3", Toast.LENGTH_LONG).show();break;
+//                case R.id.item4:
+//                    Toast.makeText(MainActivity.this, "Clicked on item4", Toast.LENGTH_LONG).show();break;
+//            }
+////            progressLayout.setVisibility(View.GONE);
+////            progressBar.setVisibility(View.GONE);
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//            TimeTableFragment timeTableFragment=new TimeTableFragment();
+//            FragmentManager fragmentManager=getSupportFragmentManager();
+//            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.frameLayout,timeTableFragment);
+//            fragmentTransaction.commit();
+//            getSupportActionBar().setTitle("item1");
+//            return true;
+//        });
 
         recyclerPeriod=findViewById(R.id.recyclerPeriod);
         recyclerDay=findViewById(R.id.recyclerDay);
-
-        //DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
-//
         model1= GenerateModelData.generateData("TIMETABLE_2",3,5);
-        //timeTableHelper.createTable(model1);
         System.out.println(model1);
         //int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
         //1Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
@@ -120,21 +100,12 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
         PeriodTimeModel initial=new PeriodTimeModel(period.get(0).getFrom(),period.get(0).getTo());
         PeriodTimeModel first=new PeriodTimeModel(period.get(1).getFrom(),period.get(1).getTo());
-        //period.add(0,initial);
-//        System.out.println(period.size());
         period.add(0,first);
         period.add(0,initial);
-        System.out.println("Period ArrayList :");
-        for(PeriodTimeModel i: period)
-            System.out.println(i);
-        System.out.println("The End");
         GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
         PeriodAdapter periodAdapter=new PeriodAdapter(this,period,false);
         recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
-//        for(String i: model1.getDays()){
-//            System.out.println(i);
-//        }
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
         DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames(),false);
         recyclerDay.setLayoutManager(dayLayoutManager);
@@ -158,6 +129,33 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_drawer,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        ArrayList<String> timeTable = new ArrayList<String>();
+        timeTable.add("TimeTable_1");
+        timeTable.add("TimeTable_2");
+        timeTable.add("TimeTable_3");
+        timeTable.add("TimeTable_4");
+        timeTable.add("TimeTable_5");
+        timeTable.add("TimeTable_6");
+        timeTable.add("TimeTable_7");
+        timeTable.add("TimeTable_8");
+        timeTable.add("TimeTable_9");
+        timeTable.add("TimeTable_10");
+        timeTable.add("TimeTable_11");
+        for(String item: timeTable)
+            menu.add(0,menu.FIRST,menu.FIRST+timeTable.indexOf(item),item);
+        menu.setGroupCheckable(0,true,true);
+        return super.onPrepareOptionsMenu(menu);
+    }
     public void showTimeTablePeriodValues(View v){
         Log.d("UPDATED VALUE",model1.toString());
     }

@@ -59,6 +59,13 @@
         </RelativeLayout>
         </ScrollView>
         </HorizontalScrollView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="log updated text"
+            android:onClick="showTimeTablePeriodValues"
+            />
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="fill_parent"

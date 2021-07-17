@@ -1,7 +1,9 @@
 package com.narendra.timetable.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     NavigationView navigationView;
     RecyclerView recyclerPeriod,recyclerDay;
+    TimeTableModel model1;
 //    RelativeLayout progressLayout;
 //    ProgressBar progressBar;
 
@@ -110,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
 //
-        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_2",3,8);
+        model1= GenerateModelData.generateData("TIMETABLE_2",3,8);
         timeTableHelper.createTable(model1);
         System.out.println(model1);
         //int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
@@ -148,5 +151,9 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
+    }
+
+    public void showTimeTablePeriodValues(View v){
+        Log.d("UPDATED VALUE",model1.toString());
     }
 }

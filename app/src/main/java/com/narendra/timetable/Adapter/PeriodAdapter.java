@@ -1,6 +1,7 @@
 package com.narendra.timetable.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.R;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder> {
@@ -66,28 +69,77 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
         else{
             holder.getPeriod().setText("PERIOD "+(position-1));
             if(!holder.getIsEdit()) {
-                holder.getFrom().setText(localDataSet.get(position - 1).getFrom().toString());
-                holder.getTo().setText(localDataSet.get(position - 1).getTo().toString());
+                holder.getFrom().setText(localDataSet.get(position - 2).getFrom().toString());
+                holder.getTo().setText(localDataSet.get(position - 2).getTo().toString());
             }else {
-                if(position==localDataSet.size()+1){
-                    holder.getFromEdit().setText(localDataSet.get(localDataSet.size()-1).getFrom().toString());
-                    holder.getToEdit().setText(localDataSet.get(localDataSet.size()-1).getTo().toString());
-                }else {
-                    holder.getFromEdit().setText(localDataSet.get(position - 1).getFrom().toString());
-                    holder.getToEdit().setText(localDataSet.get(position - 1).getTo().toString());
-                    /*holder.getToEdit().addOnAttachStateChangeListener(new TextWatcher(){
+                /*if(position==localDataSet.size()+1){
+                    holder.getFromEdit().setText(localDataSet.get(localDataSet.size()-2).getFrom().toString());
+                    holder.getToEdit().setText(localDataSet.get(localDataSet.size()-2).getTo().toString());
+                }else {*/
+                    holder.getFromEdit().setText(localDataSet.get(position - 2).getFrom().toString());
+                    holder.getToEdit().setText(localDataSet.get(position - 2).getTo().toString());
+                    holder.getToEdit().addTextChangedListener(new TextWatcher() {
+
                         @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
                         @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
                         @Override
                         public void afterTextChanged(Editable s) {
-                            Log.v("changed",s.toString());
-
+                            String[] values=s.toString().split(":");
+                            if(values.length==3) {
+                                try {
+                                    int seconds = Integer.parseInt(values[2]);
+                                    int minutes = Integer.parseInt(values[1]);
+                                    int hours = Integer.parseInt(values[0]);
+                                    localDataSet.get(position - 1).setTo(new Time(hours, minutes, seconds));
+                                    Log.v("EDIT CHANGED", "period " + (position - 2) + "changed to time to " + values);
+                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 1).getTo().toString();
+                                    //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
+                                }catch(Exception e){
+                                    holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
+                                }
+                            }else {
+                                holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
+                            }
                         }
-                    });*/
+                    });
+                    holder.getFromEdit().addTextChangedListener(new TextWatcher() {
+
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            String[] values=s.toString().split(":");
+                            if(values.length==3) {
+                                try {
+                                    int seconds = Integer.parseInt(values[2]);
+                                    int minutes = Integer.parseInt(values[1]);
+                                    int hours = Integer.parseInt(values[0]);
+                                    localDataSet.get(position - 1).setFrom(new Time(hours, minutes, seconds));
+                                    Log.v("EDIT CHANGED", "period " + (position - 2) + "changed to time to " + values);
+                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 1).getFrom().toString();
+                                    //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
+                                }catch (Exception e){
+                                    holder.getFromEdit().setText(localDataSet.get(position-2).getFrom().toString());
+                                }
+                            }else {
+                                holder.getFromEdit().setText(localDataSet.get(position-2).getFrom().toString());
+                            }
+                        }
+                    });
                     Log.v("IN PERIOD ADAPTER", position + "");
-                }
+                //}
             }
         }
     }

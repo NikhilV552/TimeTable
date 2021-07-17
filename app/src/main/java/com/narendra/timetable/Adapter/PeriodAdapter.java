@@ -1,7 +1,6 @@
 package com.narendra.timetable.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,10 +65,10 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
             }
         }
         else{
-            holder.getPeriod().setText("PERIOD "+(position-1));
+            holder.getPeriod().setText("PERIOD "+(position-2));
             if(!holder.getIsEdit()) {
-                holder.getFrom().setText(localDataSet.get(position - 2).getFrom().toString());
-                holder.getTo().setText(localDataSet.get(position - 2).getTo().toString());
+                holder.getFrom().setText(localDataSet.get(position).getFrom().toString());
+                holder.getTo().setText(localDataSet.get(position).getTo().toString());
             }else {
                 /*if(position==localDataSet.size()+1){
                     holder.getFromEdit().setText(localDataSet.get(localDataSet.size()-2).getFrom().toString());

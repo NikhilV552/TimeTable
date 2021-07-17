@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.narendra.timetable.Adapter.DayAdapter;
 import com.narendra.timetable.Adapter.PeriodAdapter;
-import com.narendra.timetable.Database.DatabaseTimeTableHelper;
 import com.narendra.timetable.Fragment.TimeTableFragment;
 import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.RowModel;
@@ -31,7 +30,6 @@ import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
 import com.narendra.timetable.exampleDemo.GenerateModelData;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -118,11 +116,18 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(model1);
         //int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
         //1Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
-        //PeriodTimeModel initial=new PeriodTimeModel(new Time(00000000),new Time(00000000));
         ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
         HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
+        PeriodTimeModel initial=new PeriodTimeModel(period.get(0).getFrom(),period.get(0).getTo());
+        PeriodTimeModel first=new PeriodTimeModel(period.get(1).getFrom(),period.get(1).getTo());
         //period.add(0,initial);
 //        System.out.println(period.size());
+        period.add(0,first);
+        period.add(0,initial);
+        System.out.println("Period ArrayList :");
+        for(PeriodTimeModel i: period)
+            System.out.println(i);
+        System.out.println("The End");
         GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
         PeriodAdapter periodAdapter=new PeriodAdapter(this,period,false);
         recyclerPeriod.setLayoutManager(periodLayoutManager);

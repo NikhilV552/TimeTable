@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.narendra.timetable.Adapter.DayAdapter;
 import com.narendra.timetable.Adapter.PeriodAdapter;
+import com.narendra.timetable.Database.DatabaseTimeTableHelper;
 import com.narendra.timetable.Fragment.TimeTableFragment;
 import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.RowModel;
@@ -109,17 +110,20 @@ public class MainActivity extends AppCompatActivity {
         recyclerPeriod=findViewById(R.id.recyclerPeriod);
         recyclerDay=findViewById(R.id.recyclerDay);
 
-        //DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
+        DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
 //
-        model1= GenerateModelData.generateData("TIMETABLE_2",4,9);
+        //model1= GenerateModelData.generateData("TIMETABLE_4",4,9);
+        model1=timeTableHelper.getTheModelFortheLoadingOfData("TIMETABLE_4");
         //timeTableHelper.createTable(model1);
         System.out.println(model1);
-        //int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
-        //1Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
+        int temp=timeTableHelper.getTimeTableId2("TIMETABLE_4");
+        Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
         ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
+        //DatabaseTimeTableHelper db=new DatabaseTimeTableHelper(this);
+        timeTableHelper.loadTheDataForATimeTable("TIMETABLE_4",model1);
         HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
-        PeriodTimeModel initial=new PeriodTimeModel(period.get(0).getFrom(),period.get(0).getTo());
-        PeriodTimeModel first=new PeriodTimeModel(period.get(1).getFrom(),period.get(1).getTo());
+        ///PeriodTimeModel initial=new PeriodTimeModel(period.get(0).getFrom(),period.get(0).getTo());
+        //PeriodTimeModel first=new PeriodTimeModel(period.get(1).getFrom(),period.get(1).getTo());
         //period.add(0,initial);
 //        System.out.println(period.size());
         //period.add(0,first);
@@ -160,5 +164,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void showTimeTablePeriodValues(View v){
         Log.d("UPDATED VALUE",model1.toString());
+    }
+
+    public void updateTheTimeTable(View v){
+        DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(this);
+        try {
+            helper.updateTheTimeTable(model1);
+            Toast.makeText(this, "TimeTable "+ model1.getTimeTableName()+" updated successfully", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -70,6 +70,7 @@ public class TimeTableModel {
     @Override
     public String toString() {
         String result="";
+        System.out.println("TIMETABLEID="+this.timeTableId+", name="+this.timeTableName);
         for(int i=0;i<numberOfperiods;i++) {
             System.out.printf("%10s ","PERIOD"+(i+1));
         }

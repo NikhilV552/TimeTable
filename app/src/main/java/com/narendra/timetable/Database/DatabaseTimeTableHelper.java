@@ -265,6 +265,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             //con.getTransactionIsolation();
             insertNewTimeTable(model.getTimeTableName(),model.getNumberOfperiods(),model.getNumberOfRows(),db);
             timetableId=getTimeTableId(model.getTimeTableName(),db);
+            model.setTimeTableId(timetableId);
             System.out.println("TIMETABLEID="+timetableId+" name="+model.getTimeTableName());
             //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
             System.out.println("timetable name added");
@@ -392,6 +393,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             //con.setAutoCommit(false);
             db.beginTransaction();
             int newTimeTableid=this.getTimeTableId(updateTimeTable.getTimeTableName(),db);
+            System.out.println(newTimeTableid+" new");
             if(newTimeTableid!=-1 && updateTimeTable.getTimeTableId()!=newTimeTableid) {
                 throw new Exception("Timetable with timetable name "+updateTimeTable.getTimeTableName()+" already present");
             }
@@ -440,11 +442,12 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
                     }
                 }
             }
-            db.endTransaction();
             db.setTransactionSuccessful();
+            db.endTransaction();
             System.out.println("Successfully updated");
         }catch(Exception e) {
             e.printStackTrace();
+            db.endTransaction();
             throw new Exception(e.getMessage());
         }finally {
             if(db!=null) {

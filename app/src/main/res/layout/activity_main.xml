@@ -46,7 +46,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPeriod"
-            android:layout_margin="1dp"
+            android:layout_margin="0dp"
             android:layout_width="match_parent"
             android:layout_height="108dp"/>
 

@@ -28,9 +28,14 @@ public class TimeTableFragment extends Fragment {
 
     RecyclerView recyclerPeriod;
     RecyclerView recyclerDay;
+    private boolean isEdit;
 
     public TimeTableFragment() {
         // Required empty public constructor
+    }
+    public TimeTableFragment(boolean isEdit) {
+        // Required empty public constructor
+        this.isEdit=isEdit;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class TimeTableFragment extends Fragment {
 
 
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(getContext());
-        DayAdapter dayAdapter=new DayAdapter(getContext(),model1.getDays(),timeTableValues,model1.getRowNames());
+        DayAdapter dayAdapter=new DayAdapter(getContext(),model1.getDays(),timeTableValues,model1.getRowNames(),isEdit);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
 

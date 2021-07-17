@@ -1,6 +1,7 @@
 package com.narendra.timetable.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
     private ArrayList<RowModel> localDataSet;
     private Context localContext;
     private ArrayList<String> rowNames;
+    private  boolean isEdit;
 
     @NonNull
     @Override
@@ -31,10 +33,11 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
         LinearLayoutManager layoutManager=new LinearLayoutManager(localContext);
         RowAdapter rowAdapter=null;
         if(position==0){
-            rowAdapter = new RowAdapter(localContext, rowNames);
+            rowAdapter = new RowAdapter(localContext, rowNames,isEdit);
         }else {
 
-            rowAdapter = new RowAdapter(localContext, localDataSet.get(position-1).getRowValues());
+            rowAdapter = new RowAdapter(localContext, localDataSet.get(position-1).getRowValues(),isEdit);
+            Log.v("ROW ADAPTER",position-1+" finished "+localDataSet.size());
         }
         holder.getRecyclerRow().setLayoutManager(layoutManager);
         holder.getRecyclerRow().setAdapter(rowAdapter);
@@ -56,9 +59,10 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
             return recyclerRow;
         }
     }
-    public ColumnAdapter(Context context,ArrayList<RowModel> dataSet,ArrayList<String> rowNames){
+    public ColumnAdapter(Context context,ArrayList<RowModel> dataSet,ArrayList<String> rowNames,boolean isEdit){
         this.rowNames=rowNames;
         localContext=context;
         localDataSet=dataSet;
+        this.isEdit=isEdit;
     }
 }

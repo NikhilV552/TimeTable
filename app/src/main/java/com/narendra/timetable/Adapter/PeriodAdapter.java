@@ -96,15 +96,15 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                     int seconds = Integer.parseInt(values[2]);
                                     int minutes = Integer.parseInt(values[1]);
                                     int hours = Integer.parseInt(values[0]);
-                                    localDataSet.get(position - 1).setTo(new Time(hours, minutes, seconds));
+                                    localDataSet.get(position - 2).setTo(new Time(hours, minutes, seconds));
                                     Log.v("EDIT CHANGED", "period " + (position - 2) + "changed to time to " + values);
-                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 1).getTo().toString();
+                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 2).getTo().toString();
                                     //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
                                 }catch(Exception e){
-                                    holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
+                                    holder.getToEdit().setText(localDataSet.get(position-1).getTo().toString());
                                 }
                             }else {
-                                holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
+                                holder.getToEdit().setText(localDataSet.get(position-1).getTo().toString());
                             }
                         }
                     });
@@ -126,9 +126,9 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                     int seconds = Integer.parseInt(values[2]);
                                     int minutes = Integer.parseInt(values[1]);
                                     int hours = Integer.parseInt(values[0]);
-                                    localDataSet.get(position - 1).setFrom(new Time(hours, minutes, seconds));
+                                    localDataSet.get(position - 2).setFrom(new Time(hours, minutes, seconds));
                                     Log.v("EDIT CHANGED", "period " + (position - 2) + "changed to time to " + values);
-                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 1).getFrom().toString();
+                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 2).getFrom().toString();
                                     //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
                                 }catch (Exception e){
                                     holder.getFromEdit().setText(localDataSet.get(position-2).getFrom().toString());
@@ -138,7 +138,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                             }
                         }
                     });
-                    Log.v("IN PERIOD ADAPTER", position + "");
+                    Log.v("IN PERIOD ADAPTER", (position-2) + " finished");
                 //}
             }
         }

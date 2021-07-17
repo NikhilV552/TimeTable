@@ -111,27 +111,27 @@ public class MainActivity extends AppCompatActivity {
         recyclerPeriod=findViewById(R.id.recyclerPeriod);
         recyclerDay=findViewById(R.id.recyclerDay);
 
-        DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
+        //DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
 //
-        model1= GenerateModelData.generateData("TIMETABLE_2",3,8);
-        timeTableHelper.createTable(model1);
+        model1= GenerateModelData.generateData("TIMETABLE_2",3,5);
+        //timeTableHelper.createTable(model1);
         System.out.println(model1);
         //int temp=timeTableHelper.getTimeTableId2("TIMETABLE_2");
         //1Toast.makeText(this, "timetableid="+temp, Toast.LENGTH_LONG).show();
-        PeriodTimeModel initial=new PeriodTimeModel(new Time(00000000),new Time(00000000));
+        //PeriodTimeModel initial=new PeriodTimeModel(new Time(00000000),new Time(00000000));
         ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
         HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
-        period.add(0,initial);
+        //period.add(0,initial);
 //        System.out.println(period.size());
         GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size());
-        PeriodAdapter periodAdapter=new PeriodAdapter(this,period,true);
+        PeriodAdapter periodAdapter=new PeriodAdapter(this,period,false);
         recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
 //        for(String i: model1.getDays()){
 //            System.out.println(i);
 //        }
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
-        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames());
+        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames(),false);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
 

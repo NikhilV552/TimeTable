@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Activity.EditTimeTableActivity">
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="TIME TABLE NAME :"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="#ffaa00"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="Edit TimeTable Name"
+            android:id="@+id/timeTablename"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="20dp">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/design_default_color_secondary">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerPeriod"
+                        android:layout_margin="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="108dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/recyclerDay"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/recyclerPeriod"
+                        />
+                </RelativeLayout>
+            </ScrollView>
+        </HorizontalScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/recyclerDay"
+            android:id="@+id/recyclerRowNames"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log value"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:onClick="logUpdatedvalues"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAVE THE TIME TABLE"
+                android:onClick="saveTheTimeTable"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -41,7 +41,12 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
             height+=2;
         }
         holder.getDay().setHeight(height);
-        GridLayoutManager layoutManager=new GridLayoutManager(localContext,localDataSet.get(localDays[position]).size()+1);
+        GridLayoutManager layoutManager;
+        if(!isEdit) {
+            layoutManager = new GridLayoutManager(localContext, localDataSet.get(localDays[position]).size() + 1);
+        }else {
+            layoutManager = new GridLayoutManager(localContext, localDataSet.get(localDays[position]).size());
+        }
         ColumnAdapter columnAdapter=new ColumnAdapter(localContext,localDataSet.get(localDays[position]),rownames,isEdit);
         holder.getRecyclerColumn().setLayoutManager(layoutManager);
         holder.getRecyclerColumn().setAdapter(columnAdapter);

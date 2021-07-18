@@ -69,7 +69,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="550dp"
+            android:layout_marginTop="150dp"
             android:text="UPDATE THE TIMETABLE"
             android:onClick="updateTheTimeTable"
             />

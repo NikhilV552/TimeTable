@@ -38,12 +38,16 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(position==0){
+        if(position==0 ){
             if(!holder.getIsEdit()) {
-                holder.getPeriod().setText("PERIODS");
-                holder.getFrom().setText("----");
-                holder.getTo().setText("DAYS");
-            }else {
+                holder.getPeriod().setText("PERIOD");
+                holder.getFrom().setText("FROM");
+                holder.getTo().setText("TO");
+            }else if(position==0 && !isEdit){
+                holder.getPeriod().setText("PERIOD");
+                holder.getFrom().setText("FROM");
+                holder.getTo().setText("TO");
+            } else {
                 holder.getPeriod().setText("PERIODS");
                 holder.getFromEdit().setText("----");
                 holder.getToEdit().setText("DAYS");
@@ -51,31 +55,96 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                 holder.getToEdit().setEnabled(false);
             }
         }
-        else if(position==1) {
-            if(holder.isEdit) {
-                holder.getPeriod().setText("PERIOD");
-                holder.getFromEdit().setText("FROM");
-                holder.getToEdit().setText("TO");
-                holder.getFromEdit().setEnabled(false);
-                holder.getToEdit().setEnabled(false);
-            }else {
+        else if(position==1  ) {
+            Log.v("PERIOD 0","IN PERIOD =1 RENDERING");
+            if(!isEdit) {
                 holder.getPeriod().setText("PERIOD");
                 holder.getFrom().setText("FROM");
                 holder.getTo().setText("TO");
+            }else{
+                holder.getFromEdit().setText(localDataSet.get(0).getFrom().toString());
+                holder.getToEdit().setText(localDataSet.get(0).getTo().toString());
+                holder.getPeriod().setText("PERIOD123");
+                holder.getToEdit().addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String[] values=s.toString().split(":");
+                        if(values.length==3) {
+                            try {
+                                int seconds = Integer.parseInt(values[2]);
+                                int minutes = Integer.parseInt(values[1]);
+                                int hours = Integer.parseInt(values[0]);
+                                localDataSet.get(position - 1).setTo(new Time(hours, minutes, seconds));
+                                Log.v("EDIT CHANGED", "period " + (0) + "changed to time to " + values);
+                                String res = "EDIT CHANGED" + " period " + (0) + "changed to time to " + localDataSet.get(position - 2).getTo().toString();
+                                //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
+                            }catch(Exception e){
+                                /*try {
+                                    holder.getToEdit().setText(localDataSet.get(0).getTo().toString());
+                                }catch (Exception e1){
+                                    e1.printStackTrace();
+                                }*/
+                            }
+                        }else {
+                            holder.getToEdit().setText(localDataSet.get(0).getTo().toString());
+                        }
+                    }
+                });
+                holder.getFromEdit().addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String[] values=s.toString().split(":");
+                        if(values.length==3) {
+                            try {
+                                int seconds = Integer.parseInt(values[2]);
+                                int minutes = Integer.parseInt(values[1]);
+                                int hours = Integer.parseInt(values[0]);
+                                localDataSet.get(0).setFrom(new Time(hours, minutes, seconds));
+                                Log.v("EDIT CHANGED", "period " + (0) + "changed to time to " + values);
+                                String res = "EDIT CHANGED" + " period " + (0) + "changed to time to " + localDataSet.get(position - 2).getFrom().toString();
+                                //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
+                            }catch (Exception e){
+                                /*try {
+                                    holder.getFromEdit().setText(localDataSet.get(0).getFrom().toString());
+                                }catch(Exception e1){
+                                    e1.printStackTrace();
+                                }*/
+                            }
+                        }else {
+                            holder.getFromEdit().setText(localDataSet.get(0).getFrom().toString());
+                        }
+                    }
+                });
+                Log.v("PERIOD 0","Period zero finished");
             }
         }
         else{
-            holder.getPeriod().setText("PERIOD "+(position-1));
             if(!holder.getIsEdit()) {
-                holder.getFrom().setText(localDataSet.get(position).getFrom().toString());
-                holder.getTo().setText(localDataSet.get(position).getTo().toString());
+                holder.getFrom().setText(localDataSet.get(position-2).getFrom().toString());
+                holder.getTo().setText(localDataSet.get(position-2).getTo().toString());
+                holder.getPeriod().setText("PERIOD "+(position-1));
             }else {
-                /*if(position==localDataSet.size()+1){
-                    holder.getFromEdit().setText(localDataSet.get(localDataSet.size()-2).getFrom().toString());
-                    holder.getToEdit().setText(localDataSet.get(localDataSet.size()-2).getTo().toString());
-                }else {*/
-                    holder.getFromEdit().setText(localDataSet.get(position - 2).getFrom().toString());
-                    holder.getToEdit().setText(localDataSet.get(position - 2).getTo().toString());
+                holder.getPeriod().setText("PERIOD "+(position));
+                    holder.getFromEdit().setText(localDataSet.get(position - 1).getFrom().toString());
+                    holder.getToEdit().setText(localDataSet.get(position - 1).getTo().toString());
                     holder.getToEdit().addTextChangedListener(new TextWatcher() {
 
                         @Override
@@ -94,15 +163,19 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                     int seconds = Integer.parseInt(values[2]);
                                     int minutes = Integer.parseInt(values[1]);
                                     int hours = Integer.parseInt(values[0]);
-                                    localDataSet.get(position - 2).setTo(new Time(hours, minutes, seconds));
-                                    Log.v("EDIT CHANGED", "period " + (position - 2) + "changed to time to " + values);
-                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 2).getTo().toString();
+                                    localDataSet.get(position - 1).setTo(new Time(hours, minutes, seconds));
+                                    Log.v("EDIT CHANGED", "period " + (position - 1) + "changed to time to " + values);
+                                    String res = "EDIT CHANGED" + " period " + (position - 1) + "changed to time to " + localDataSet.get(position - 2).getTo().toString();
                                     //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
                                 }catch(Exception e){
-                                    holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
+                                    /*try {
+                                        holder.getToEdit().setText(localDataSet.get(position - 1).getTo().toString());
+                                    }catch (Exception e1){
+                                        e1.printStackTrace();
+                                    }*/
                                 }
                             }else {
-                                holder.getToEdit().setText(localDataSet.get(position-2).getTo().toString());
+                                holder.getToEdit().setText(localDataSet.get(position-1).getTo().toString());
                             }
                         }
                     });
@@ -124,19 +197,23 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                     int seconds = Integer.parseInt(values[2]);
                                     int minutes = Integer.parseInt(values[1]);
                                     int hours = Integer.parseInt(values[0]);
-                                    localDataSet.get(position - 2).setFrom(new Time(hours, minutes, seconds));
-                                    Log.v("EDIT CHANGED", "period " + (position - 2) + "changed to time to " + values);
-                                    String res = "EDIT CHANGED" + " period " + (position - 2) + "changed to time to " + localDataSet.get(position - 2).getFrom().toString();
+                                    localDataSet.get(position - 1).setFrom(new Time(hours, minutes, seconds));
+                                    Log.v("EDIT CHANGED", "period " + (position - 1) + "changed to time to " + values);
+                                    String res = "EDIT CHANGED" + " period " + (position - 1) + "changed to time to " + localDataSet.get(position - 2).getFrom().toString();
                                     //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
                                 }catch (Exception e){
-                                    holder.getFromEdit().setText(localDataSet.get(position-2).getFrom().toString());
+                                    try {
+                                        holder.getFromEdit().setText(localDataSet.get(position - 1).getFrom().toString());
+                                    }catch(Exception e1){
+                                        e1.printStackTrace();
+                                    }
                                 }
                             }else {
-                                holder.getFromEdit().setText(localDataSet.get(position-2).getFrom().toString());
+                                holder.getFromEdit().setText(localDataSet.get(position-1).getFrom().toString());
                             }
                         }
                     });
-                    Log.v("IN PERIOD ADAPTER", (position-2) + " finished");
+                    Log.v("IN PERIOD ADAPTER", (position-1) + " finished");
                 //}
             }
         }
@@ -144,7 +221,13 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return localDataSet.size()+2;
+
+        if(isEdit) {
+            return localDataSet.size()+1;
+        }
+        else {
+            return localDataSet.size()+2;
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

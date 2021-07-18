@@ -32,12 +32,15 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LinearLayoutManager layoutManager=new LinearLayoutManager(localContext);
         RowAdapter rowAdapter=null;
-        if(position==0){
+        if(position==0 && !isEdit){
             rowAdapter = new RowAdapter(localContext, rowNames,isEdit,true);
-        }else {
+        }else if(isEdit){
 
+            rowAdapter = new RowAdapter(localContext, localDataSet.get(position).getRowValues(),isEdit,false);
+            Log.v("ROW ADAPTER",position+" finished "+localDataSet.size());
+        }else {
             rowAdapter = new RowAdapter(localContext, localDataSet.get(position-1).getRowValues(),isEdit,false);
-            Log.v("ROW ADAPTER",position-1+" finished "+localDataSet.size());
+            Log.v("ROW ADAPTER",position-1+" finished non edit "+localDataSet.size());
         }
         holder.getRecyclerRow().setLayoutManager(layoutManager);
         holder.getRecyclerRow().setAdapter(rowAdapter);
@@ -45,7 +48,11 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return localDataSet.size()+1;
+        if(isEdit){
+            return  localDataSet.size();
+        }else {
+            return localDataSet.size() + 1;
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

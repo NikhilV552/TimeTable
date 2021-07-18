@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeTable">
         <activity android:name=".Activity.EditUpdateActivity"/>
+        <activity android:name=".Activity.EditTimeTableActivity"/>
         <activity android:name=".Activity.CreateActivity" />
         <activity android:name=".Activity.SplashActivity" >
             <intent-filter>

@@ -1,5 +1,6 @@
 package com.narendra.timetable.Adapter;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,20 +41,16 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(position==0 ){
-            if(!holder.getIsEdit()) {
+            if(holder.getIsEdit()) {
                 holder.getPeriod().setText("PERIOD");
-                holder.getFrom().setText("FROM");
-                holder.getTo().setText("TO");
-            }else if(position==0 && !isEdit){
-                holder.getPeriod().setText("PERIOD");
-                holder.getFrom().setText("FROM");
-                holder.getTo().setText("TO");
-            } else {
-                holder.getPeriod().setText("PERIODS");
-                holder.getFromEdit().setText("----");
-                holder.getToEdit().setText("DAYS");
+                holder.getFromEdit().setText("FROM");
+                holder.getToEdit().setText("TO");
                 holder.getFromEdit().setEnabled(false);
                 holder.getToEdit().setEnabled(false);
+            }else {
+                holder.getPeriod().setText("PERIODs");
+                holder.getFrom().setText("---");
+                holder.getTo().setText("DAYS");
             }
         }
         else if(position==1  ) {
@@ -65,41 +63,41 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                 holder.getFromEdit().setText(localDataSet.get(0).getFrom().toString());
                 holder.getToEdit().setText(localDataSet.get(0).getTo().toString());
                 holder.getPeriod().setText("PERIOD123");
-                holder.getToEdit().addTextChangedListener(new TextWatcher() {
-
+                holder.getToEdit().setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        String[] values=s.toString().split(":");
-                        if(values.length==3) {
-                            try {
-                                int seconds = Integer.parseInt(values[2]);
-                                int minutes = Integer.parseInt(values[1]);
-                                int hours = Integer.parseInt(values[0]);
-                                localDataSet.get(position - 1).setTo(new Time(hours, minutes, seconds));
-                                Log.v("EDIT CHANGED", "period " + (0) + "changed to time to " + values);
-                                String res = "EDIT CHANGED" + " period " + (0) + "changed to time to " + localDataSet.get(position - 2).getTo().toString();
-                                //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
-                            }catch(Exception e){
-                                /*try {
-                                    holder.getToEdit().setText(localDataSet.get(0).getTo().toString());
-                                }catch (Exception e1){
-                                    e1.printStackTrace();
-                                }*/
+                    public void onClick(View v) {
+                        Time t=localDataSet.get(0).getTo();
+                        TimePickerDialog timePicker=new TimePickerDialog(localContext, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                Time t1=new Time(hourOfDay,minute,0);
+                                localDataSet.get(0).setTo(t1);
+                                holder.getToEdit().setText(t1.toString());
+                                Log.v("PERIOD 1 CHANGED TO",localDataSet.get(0).getTo().toString());
                             }
-                        }else {
-                            holder.getToEdit().setText(localDataSet.get(0).getTo().toString());
-                        }
+                        },0,0,true);
+                        Log.v("TIME PICKER","SHOWN");
+                        timePicker.show();
                     }
                 });
-                holder.getFromEdit().addTextChangedListener(new TextWatcher() {
+                holder.getFromEdit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Time t=localDataSet.get(0).getFrom();
+                        TimePickerDialog timePicker=new TimePickerDialog(localContext, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                Time t1=new Time(hourOfDay,minute,0);
+                                localDataSet.get(0).setFrom(t1);
+                                holder.getFromEdit().setText(t1.toString());
+                                Log.v("PERIOD 1 CHANGED TO",localDataSet.get(0).getFrom().toString());
+                            }
+                        },0,0,true);
+                        Log.v("TIME PICKER","SHOWN");
+                        timePicker.show();
+                    }
+                });
+                /*holder.getFromEdit().addTextChangedListener(new TextWatcher() {
 
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -126,14 +124,15 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                     holder.getFromEdit().setText(localDataSet.get(0).getFrom().toString());
                                 }catch(Exception e1){
                                     e1.printStackTrace();
-                                }*/
+                                }
                             }
                         }else {
                             holder.getFromEdit().setText(localDataSet.get(0).getFrom().toString());
                         }
                     }
                 });
-                Log.v("PERIOD 0","Period zero finished");
+                Log.v("PERIOD 0","Period zero finished");*/
+
             }
         }
         else{
@@ -143,78 +142,42 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                 holder.getPeriod().setText("PERIOD "+(position-1));
             }else {
                 holder.getPeriod().setText("PERIOD "+(position));
-                    holder.getFromEdit().setText(localDataSet.get(position - 1).getFrom().toString());
-                    holder.getToEdit().setText(localDataSet.get(position - 1).getTo().toString());
-                    holder.getToEdit().addTextChangedListener(new TextWatcher() {
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                            String[] values=s.toString().split(":");
-                            if(values.length==3) {
-                                try {
-                                    int seconds = Integer.parseInt(values[2]);
-                                    int minutes = Integer.parseInt(values[1]);
-                                    int hours = Integer.parseInt(values[0]);
-                                    localDataSet.get(position - 1).setTo(new Time(hours, minutes, seconds));
-                                    Log.v("EDIT CHANGED", "period " + (position - 1) + "changed to time to " + values);
-                                    String res = "EDIT CHANGED" + " period " + (position - 1) + "changed to time to " + localDataSet.get(position - 2).getTo().toString();
-                                    //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
-                                }catch(Exception e){
-                                    /*try {
-                                        holder.getToEdit().setText(localDataSet.get(position - 1).getTo().toString());
-                                    }catch (Exception e1){
-                                        e1.printStackTrace();
-                                    }*/
-                                }
-                            }else {
-                                holder.getToEdit().setText(localDataSet.get(position-1).getTo().toString());
+                holder.getFromEdit().setText(localDataSet.get(position - 1).getFrom().toString());
+                holder.getToEdit().setText(localDataSet.get(position - 1).getTo().toString());
+                holder.getToEdit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Time t=localDataSet.get(position - 1).getTo();
+                        TimePickerDialog timePicker=new TimePickerDialog(localContext, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                Time t1=new Time(hourOfDay,minute,0);
+                                localDataSet.get(position - 1).setTo(t1);
+                                holder.getToEdit().setText(t1.toString());
+                                Log.v("PERIOD 1 CHANGED TO",localDataSet.get(position - 1).getTo().toString());
                             }
-                        }
-                    });
-                    holder.getFromEdit().addTextChangedListener(new TextWatcher() {
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                            String[] values=s.toString().split(":");
-                            if(values.length==3) {
-                                try {
-                                    int seconds = Integer.parseInt(values[2]);
-                                    int minutes = Integer.parseInt(values[1]);
-                                    int hours = Integer.parseInt(values[0]);
-                                    localDataSet.get(position - 1).setFrom(new Time(hours, minutes, seconds));
-                                    Log.v("EDIT CHANGED", "period " + (position - 1) + "changed to time to " + values);
-                                    String res = "EDIT CHANGED" + " period " + (position - 1) + "changed to time to " + localDataSet.get(position - 2).getFrom().toString();
-                                    //Toast.makeText(localContext, res, Toast.LENGTH_LONG).show();
-                                }catch (Exception e){
-                                    try {
-                                        holder.getFromEdit().setText(localDataSet.get(position - 1).getFrom().toString());
-                                    }catch(Exception e1){
-                                        e1.printStackTrace();
-                                    }
-                                }
-                            }else {
-                                holder.getFromEdit().setText(localDataSet.get(position-1).getFrom().toString());
+                        },0,0,true);
+                        Log.v("TIME PICKER","SHOWN");
+                        timePicker.show();
+                    }
+                });
+                holder.getFromEdit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Time t=localDataSet.get(position - 1).getFrom();
+                        TimePickerDialog timePicker=new TimePickerDialog(localContext, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                Time t1=new Time(hourOfDay,minute,0);
+                                localDataSet.get(position - 1).setFrom(t1);
+                                holder.getFromEdit().setText(t1.toString());
+                                Log.v("PERIOD 1 CHANGED TO",localDataSet.get(position - 1).getFrom().toString());
                             }
-                        }
-                    });
-                    Log.v("IN PERIOD ADAPTER", (position-1) + " finished");
-                //}
+                        },t.getHours(),t.getMinutes(),true);
+                        Log.v("TIME PICKER","SHOWN");
+                        timePicker.show();
+                    }
+                });
             }
         }
     }

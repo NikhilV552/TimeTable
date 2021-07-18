@@ -1,5 +1,6 @@
 package com.narendra.timetable.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -108,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
 //
-        model1= GenerateModelData.generateData("TIMETABLE_4",4,9);
-        //model1=timeTableHelper.getTheModelFortheLoadingOfData("TIMETABLE_4");
+        //model1= GenerateModelData.generateData("TIMETABLE_4",4,9);
+        model1=timeTableHelper.getTheModelFortheLoadingOfData("TIMETABLE_4");
         timeTableHelper.createTable(model1);
         System.out.println(model1);
         int temp=timeTableHelper.getTimeTableId2("TIMETABLE_4");
@@ -129,14 +130,14 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(i);
         System.out.println("The End");
         GridLayoutManager periodLayoutManager=new GridLayoutManager(this,period.size()+2);
-        PeriodAdapter periodAdapter=new PeriodAdapter(this,period,true);
+        PeriodAdapter periodAdapter=new PeriodAdapter(this,period,false);
         recyclerPeriod.setLayoutManager(periodLayoutManager);
         recyclerPeriod.setAdapter(periodAdapter);
 //        for(String i: model1.getDays()){
 //            System.out.println(i);
 //        }
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(this);
-        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames(),true);
+        DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames(),false);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
 
@@ -162,12 +163,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateTheTimeTable(View v){
-        DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(this);
+        /*DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(this);
         try {
             helper.updateTheTimeTable(model1);
             Toast.makeText(this, "TimeTable "+ model1.getTimeTableName()+" updated successfully", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        }*/
+        Intent i=new Intent(this,EditTimeTableActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putInt("TIMETABLEID",model1.getTimeTableId());
+        bundle.putBoolean("isNew",false);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 }

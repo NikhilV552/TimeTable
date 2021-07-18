@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         Menu menu=navigationView.getMenu();
+        DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
+        ArrayList<String> timeTableNames=timeTableHelper.getAllTimeTableNamesPresent();
+        timeTable=timeTableNames;
         for(String item: timeTable)
             menu.add(R.id.group,Menu.FIRST,Menu.FIRST+timeTable.indexOf(item),item);
         navigationView.setNavigationItemSelectedListener(item -> {
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerPeriod=findViewById(R.id.recyclerPeriod);
         recyclerDay=findViewById(R.id.recyclerDay);
 
-        DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
+        //DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
 //
         //model1= GenerateModelData.generateData("TIMETABLE_4",4,9);
         model1=timeTableHelper.getTheModelFortheLoadingOfData("TIMETABLE_4");

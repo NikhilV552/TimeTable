@@ -29,35 +29,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
         </com.google.android.material.appbar.AppBarLayout>
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="200dp">
-
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/design_default_color_secondary">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPeriod"
-            android:layout_margin="0dp"
-            android:layout_width="match_parent"
-            android:layout_height="108dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:id="@+id/recyclerDay"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/recyclerPeriod"
-            />
-        </RelativeLayout>
-        </ScrollView>
-        </HorizontalScrollView>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,18 +60,17 @@
         >
 
     </com.google.android.material.navigation.NavigationView>
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/progressLayout"-->
-<!--        android:background="#ffffff">-->
-
-<!--        <ProgressBar-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:id="@+id/progressBar"-->
-<!--            />-->
-<!--    </RelativeLayout>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/progressLayout"
+        android:background="#ffffff">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            />
+    </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

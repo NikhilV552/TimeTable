@@ -1,5 +1,6 @@
 package com.narendra.timetable.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,14 +29,16 @@ public class TimeTableFragment extends Fragment {
 
     RecyclerView recyclerPeriod;
     RecyclerView recyclerDay;
-    private boolean isEdit;
-
+    private  boolean isEdit;
+    TimeTableModel model1;
+    Context ctx;
     public TimeTableFragment() {
         // Required empty public constructor
     }
-    public TimeTableFragment(boolean isEdit) {
+    public TimeTableFragment(boolean isEdit, Context ctx) {
         // Required empty public constructor
         this.isEdit=isEdit;
+        this.ctx=ctx;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +53,22 @@ public class TimeTableFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_time_table, container, false);
         recyclerPeriod=view.findViewById(R.id.recyclerPeriod);
         recyclerDay=view.findViewById(R.id.recyclerDay);
-
+        //getArguments();
+        String timeTablename="TIMETABLE_4";
         DatabaseTimeTableHelper timeTableHelper = new DatabaseTimeTableHelper(getActivity());
-        TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_2", 2, 8);
+        model1=timeTableHelper.getTheModelFortheLoadingOfData(timeTablename);
+        timeTableHelper.loadTheDataForATimeTable(timeTablename,model1);
+        ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
+        HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
+        GridLayoutManager periodLayoutManager=new GridLayoutManager(ctx,period.size()+2);
+        PeriodAdapter periodAdapter=new PeriodAdapter(ctx,period,false);
+        recyclerPeriod.setLayoutManager(periodLayoutManager);
+        recyclerPeriod.setAdapter(periodAdapter);
+        LinearLayoutManager dayLayoutManager=new LinearLayoutManager(ctx);
+        DayAdapter dayAdapter=new DayAdapter(ctx,model1.getDays(),timeTableValues,model1.getRowNames(),false);
+        recyclerDay.setLayoutManager(dayLayoutManager);
+        recyclerDay.setAdapter(dayAdapter);
+        /*TimeTableModel model1 = GenerateModelData.generateData("TIMETABLE_2", 2, 8);
         timeTableHelper.createTable(model1);
         System.out.println(model1);
         int temp = timeTableHelper.getTimeTableId2("TIMETABLE_2");
@@ -72,7 +88,8 @@ public class TimeTableFragment extends Fragment {
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(getContext());
         DayAdapter dayAdapter=new DayAdapter(getContext(),model1.getDays(),timeTableValues,model1.getRowNames(),isEdit);
         recyclerDay.setLayoutManager(dayLayoutManager);
-        recyclerDay.setAdapter(dayAdapter);
+        recyclerDay.setAdapter(dayAdapter);*/
+
 
         return view;
 

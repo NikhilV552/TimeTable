@@ -26,6 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.narendra.timetable.Adapter.DayAdapter;
 import com.narendra.timetable.Adapter.PeriodAdapter;
 import com.narendra.timetable.Database.DatabaseTimeTableHelper;
+import com.narendra.timetable.Fragment.TimeTableFragment;
 import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.RowModel;
 import com.narendra.timetable.Model.TimeTableModel;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         });
 ////            progressLayout.setVisibility(View.GONE);
 ////            progressBar.setVisibility(View.GONE);
-//            TimeTableFragment timeTableFragment=new TimeTableFragment();
+//            TimeTableFragment timeTableFragment=new TimeTableFragment(false,this);
 //            FragmentManager fragmentManager=getSupportFragmentManager();
 //            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
 //            fragmentTransaction.replace(R.id.frameLayout,timeTableFragment);

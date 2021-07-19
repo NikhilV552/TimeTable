@@ -26,6 +26,7 @@ public class TimeTableFragment extends Fragment {
     RecyclerView recyclerPeriod;
     RecyclerView recyclerDay;
     private boolean isEdit;
+    TimeTableModel model1;
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -49,7 +50,7 @@ public class TimeTableFragment extends Fragment {
         recyclerDay=view.findViewById(R.id.recyclerDay);
 
 
-        DatabaseTimeTableHelper timeTableHelper = new DatabaseTimeTableHelper(getActivity());
+        /*DatabaseTimeTableHelper timeTableHelper = new DatabaseTimeTableHelper(getActivity());
         String tableName=getArguments().getString("tableName");
         TimeTableModel model1 = timeTableHelper.getTheModelFortheLoadingOfData(tableName);
         ArrayList<PeriodTimeModel> period = model1.getPeriodTimes();
@@ -65,6 +66,21 @@ public class TimeTableFragment extends Fragment {
 
         LinearLayoutManager dayLayoutManager=new LinearLayoutManager(getContext());
         DayAdapter dayAdapter=new DayAdapter(getContext(),model1.getDays(),timeTableValues,model1.getRowNames(),isEdit);
+        recyclerDay.setLayoutManager(dayLayoutManager);
+        recyclerDay.setAdapter(dayAdapter);*/
+
+        String timeTablename=getArguments().getString("tableName");
+        DatabaseTimeTableHelper timeTableHelper = new DatabaseTimeTableHelper(getActivity());
+        model1=timeTableHelper.getTheModelFortheLoadingOfData(timeTablename);
+        timeTableHelper.loadTheDataForATimeTable(timeTablename,model1);
+        ArrayList<PeriodTimeModel> period=model1.getPeriodTimes();
+        HashMap<String,ArrayList<RowModel>> timeTableValues=model1.getTimeTableValues();
+        GridLayoutManager periodLayoutManager=new GridLayoutManager(getContext(),period.size()+2);
+        PeriodAdapter periodAdapter=new PeriodAdapter(getContext(),period,false);
+        recyclerPeriod.setLayoutManager(periodLayoutManager);
+        recyclerPeriod.setAdapter(periodAdapter);
+        LinearLayoutManager dayLayoutManager=new LinearLayoutManager(getContext());
+        DayAdapter dayAdapter=new DayAdapter(getContext(),model1.getDays(),timeTableValues,model1.getRowNames(),false);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
 

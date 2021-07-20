@@ -6,6 +6,20 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".Activity.EditTimeTableActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/design_default_color_primary_dark"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
     <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -39,8 +53,8 @@
         >
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="20dp">
+            android:layout_height="320dp"
+            android:layout_marginTop="5dp">
 
             <ScrollView
                 android:layout_width="wrap_content"
@@ -68,7 +82,7 @@
         </HorizontalScrollView>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="125dp"
             android:layout_below="@+id/recyclerDay"
             android:id="@+id/recyclerRowNames"
             />

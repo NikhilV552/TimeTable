@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     FrameLayout frameLayout;
     NavigationView navigationView;
-    TimeTableModel model1;
     RelativeLayout progressLayout;
     ProgressBar progressBar;
 
@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         drawerLayout = findViewById(R.id.drawerLayout);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
         toolbar = findViewById(R.id.toolbar);
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
             progressLayout.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
+            Log.v("IN MAIN ACTIVITY",timeTableFragment.getTimeTableId()+"");
             return true;
         });
     }
@@ -132,5 +132,11 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
+
+    public void createNewTimeTable(View view){
+        Intent i=new Intent(this,CreateActivity.class);
+        startActivity(i);
+    }
+
 
 }

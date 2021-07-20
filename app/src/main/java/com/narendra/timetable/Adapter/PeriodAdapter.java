@@ -75,7 +75,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                 holder.getToEdit().setText(t1.toString());
                                 Log.v("PERIOD 1 CHANGED TO",localDataSet.get(0).getTo().toString());
                             }
-                        },0,0,true);
+                        },t.getHours(),t.getMinutes(),true);
                         Log.v("TIME PICKER","SHOWN");
                         timePicker.show();
                     }
@@ -92,7 +92,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                 holder.getFromEdit().setText(t1.toString());
                                 Log.v("PERIOD 1 CHANGED TO",localDataSet.get(0).getFrom().toString());
                             }
-                        },0,0,true);
+                        },t.getHours(),t.getMinutes(),true);
                         Log.v("TIME PICKER","SHOWN");
                         timePicker.show();
                     }
@@ -156,7 +156,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
                                 holder.getToEdit().setText(t1.toString());
                                 Log.v("PERIOD 1 CHANGED TO",localDataSet.get(position - 1).getTo().toString());
                             }
-                        },0,0,true);
+                        },t.getHours(),t.getMinutes(),true);
                         Log.v("TIME PICKER","SHOWN");
                         timePicker.show();
                     }
@@ -197,8 +197,8 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
         private final TextView period;
         private final TextView from;
         private final TextView to;
-        private final EditText fromTime;
-        private final EditText toTime;
+        private final TextView fromTime;
+        private final TextView toTime;
         private boolean isEdit;
 
         public ViewHolder(View view,boolean isEdit){
@@ -228,10 +228,10 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
         public TextView getTo(){
             return to;
         }
-        public EditText getFromEdit(){
+        public TextView getFromEdit(){
             return  fromTime;
         }
-        public EditText getToEdit(){
+        public TextView getToEdit(){
             return toTime;
         }
         public boolean getIsEdit(){

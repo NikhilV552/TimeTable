@@ -18,10 +18,16 @@ import com.narendra.timetable.Model.RowModel;
 import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
 import com.narendra.timetable.exampleDemo.GenerateModelData;
+import com.narendra.timetable.util.CreateTableParamaters;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -34,18 +40,23 @@ public class EditTimeTableActivity extends AppCompatActivity {
     RecyclerView recyclerPeriod,recyclerDay,recyclerRowNamedEdit;
     TimeTableModel model1;
     boolean isNew;
+    EditText timetableName;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_time_table);
         Bundle bundle=getIntent().getExtras();
-        int timeTableId=bundle.getInt("TIMETABLEID");
-        isNew=bundle.getBoolean("isNew");
+        int timeTableId=bundle.getInt(CreateTableParamaters.TimeTableId.toString());
+        timetableName=findViewById(R.id.timeTablename);
+        toolbar = findViewById(R.id.toolbar);
+
+        isNew=bundle.getBoolean(CreateTableParamaters.isNew.toString());
         if(isNew){
-            String timetableName=bundle.getString("TIMETABLENAME");
-            int numberOfPeriods=bundle.getInt("NumberOfPeriods");
-            int numberOfRows=bundle.getInt("NumberOfRows");
+            String timetableName=bundle.getString(CreateTableParamaters.TimeTableName.toString());
+            int numberOfPeriods=bundle.getInt(CreateTableParamaters.NumberOfPeriods.toString());
+            int numberOfRows=bundle.getInt(CreateTableParamaters.NumberOfRows.toString());
             model1= GenerateModelData.generateData(timetableName,numberOfRows,numberOfPeriods);
         }else {
             DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(this);
@@ -73,6 +84,25 @@ public class EditTimeTableActivity extends AppCompatActivity {
         DayAdapter dayAdapter=new DayAdapter(this,model1.getDays(),timeTableValues,model1.getRowNames(),true);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
+        timetableName.setText(model1.getTimeTableName());
+        timetableName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                model1.setTimeTableName(s.toString());
+            }
+        });
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(model1.getTimeTableName());
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0504AA")));
+        }
+
         /*
         DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(this);
         try {

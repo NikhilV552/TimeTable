@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,6 +21,7 @@ import com.narendra.timetable.Model.PeriodTimeModel;
 import com.narendra.timetable.Model.RowModel;
 import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
+import com.narendra.timetable.util.CreateTableParamaters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,13 +32,14 @@ public class TimeTableFragment extends Fragment {
     RecyclerView recyclerDay;
     private boolean isEdit;
     TimeTableModel model1;
+    Button updateButton;
+
+    public int getTimeTableId(){
+        return this.model1.getTimeTableId();
+    }
 
     public TimeTableFragment() {
         // Required empty public constructor
-    }
-    public TimeTableFragment(boolean isEdit) {
-        // Required empty public constructor
-        this.isEdit=isEdit;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,26 +54,8 @@ public class TimeTableFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_time_table, container, false);
         recyclerPeriod=view.findViewById(R.id.recyclerPeriod);
         recyclerDay=view.findViewById(R.id.recyclerDay);
+        updateButton=view.findViewById(R.id.updateTimeTable);
 
-
-        /*DatabaseTimeTableHelper timeTableHelper = new DatabaseTimeTableHelper(getActivity());
-        String tableName=getArguments().getString("tableName");
-        TimeTableModel model1 = timeTableHelper.getTheModelFortheLoadingOfData(tableName);
-        ArrayList<PeriodTimeModel> period = model1.getPeriodTimes();
-
-        HashMap<String, ArrayList<RowModel>> timeTableValues = model1.getTimeTableValues();
-
-
-        GridLayoutManager periodLayoutManager=new GridLayoutManager(getContext(),period.size());
-        PeriodAdapter periodAdapter=new PeriodAdapter(getContext(),period,true);
-        recyclerPeriod.setLayoutManager(periodLayoutManager);
-        recyclerPeriod.setAdapter(periodAdapter);
-
-
-        LinearLayoutManager dayLayoutManager=new LinearLayoutManager(getContext());
-        DayAdapter dayAdapter=new DayAdapter(getContext(),model1.getDays(),timeTableValues,model1.getRowNames(),isEdit);
-        recyclerDay.setLayoutManager(dayLayoutManager);
-        recyclerDay.setAdapter(dayAdapter);*/
 
         String timeTablename=getArguments().getString("tableName");
         DatabaseTimeTableHelper timeTableHelper = new DatabaseTimeTableHelper(getActivity());
@@ -85,16 +71,20 @@ public class TimeTableFragment extends Fragment {
         DayAdapter dayAdapter=new DayAdapter(getContext(),model1.getDays(),timeTableValues,model1.getRowNames(),false);
         recyclerDay.setLayoutManager(dayLayoutManager);
         recyclerDay.setAdapter(dayAdapter);
-
+        System.out.println(model1);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Going to edit"+":"+model1.getTimeTableName(), Toast.LENGTH_SHORT).show();
+                Intent i=new Intent(getContext(), EditTimeTableActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putInt(CreateTableParamaters.TimeTableId.toString(),model1.getTimeTableId());
+                bundle.putBoolean(CreateTableParamaters.isNew.toString(),false);
+                i.putExtras(bundle);
+                startActivity(i);
+            }
+        });
         return view;
 
-    }
-    public void updateTheTimeTable(View v){
-        Intent i=new Intent(getContext(), EditTimeTableActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putInt("TIMETABLEID",model1.getTimeTableId());
-        bundle.putBoolean("isNew",false);
-        i.putExtras(bundle);
-        startActivity(i);
     }
 }

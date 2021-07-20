@@ -32,6 +32,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
         while (c.moveToNext()){
             tableNames.add(c.getString(c.getColumnIndex(TimeTableContract.timeTableName)));
         }
+        db.close();
         return tableNames;
     }
 
@@ -40,9 +41,11 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
         String query="SELECT MAX("+TimeTableContract.timeTableId+") AS MAXID  FROM "+TimeTableContract.tableName+";";
         Cursor corsor=db.rawQuery(query,null);
         if(!corsor.moveToNext()){
+            db.close();
             return 0;
         }else{
             System.out.println("MAXID="+corsor.getInt(corsor.getColumnIndex("MAXID")));
+            db.close();
             return corsor.getInt(corsor.getColumnIndex("MAXID"));
         }
     }
@@ -50,6 +53,30 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
     public TimeTableModel getTheModelFortheLoadingOfData(String timetableName) {
         //Connection con=DatabaseConnection.getConnection("jdbc:sqlite:E:\\6th_sem\\ADP\\trailDb2.db");
         SQLiteDatabase db=this.getWritableDatabase();
+        TimeTableModel model1=null;
+        if(db!=null) {
+            try {
+                String myQuery="select * from "+TimeTableContract.tableName+" where "+TimeTableContract.timeTableName+" = '"+timetableName+"' ;";
+                //stmt=con.createStatement();
+                Cursor rs=db.rawQuery(myQuery,null);
+                if(rs.moveToNext()) {
+                    model1= GenerateModelData.generateData(timetableName, rs.getInt(rs.getColumnIndex(TimeTableContract.numberOfRows)),rs.getInt(rs.getColumnIndex(TimeTableContract.numberOfperiods)));
+                    model1.setTimeTableId(rs.getInt(rs.getColumnIndex(TimeTableContract.timeTableId)));
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }else {
+            System.out.println("Sorru coulkd not establish connection");
+        }
+        db.close();
+        return model1;
+    }
+
+    public TimeTableModel getTheModelFortheLoadingOfData(String timetableName,SQLiteDatabase db) {
+        //Connection con=DatabaseConnection.getConnection("jdbc:sqlite:E:\\6th_sem\\ADP\\trailDb2.db");
         TimeTableModel model1=null;
         if(db!=null) {
             try {
@@ -91,12 +118,82 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             System.out.println("Sorru coulkd not establish connection");
         }
 
+        db.close();
+        return model1;
+    }
+    public TimeTableModel getTheModelFortheLoadingOfData(int timetableId,SQLiteDatabase db) {
+        TimeTableModel model1=null;
+        if(db!=null) {
+            try {
+                String statement="select * from "+TimeTableContract.tableName+" where "+TimeTableContract.timeTableId+" = "+timetableId+" ;";
+                Cursor rs=db.rawQuery(statement,null);
+                if(rs.moveToNext()) {
+                    model1=GenerateModelData.generateData(rs.getString(rs.getColumnIndex(TimeTableContract.timeTableName)), rs.getInt(rs.getColumnIndex(TimeTableContract.numberOfRows)),rs.getInt(rs.getColumnIndex(TimeTableContract.numberOfperiods)));
+                    model1.setTimeTableId(rs.getInt(rs.getColumnIndex(TimeTableContract.timeTableId)));
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }else {
+            System.out.println("Sorru coulkd not establish connection");
+        }
 
         return model1;
     }
-
     public void loadTheDataForATimeTable(String timetableName, TimeTableModel model) {
         SQLiteDatabase db=this.getWritableDatabase();
+        try {
+            ArrayList<String> rowValues=model.getRowNames();
+            //Statement stmt=con.createStatement();
+            //PreparedStatement psmt=con.prepareStatement("SELECT * FROM "+TimeTableRowsContract.tablename +" WHERE "+TimeTableRowsContract.timeTableId +" = ? ORDER BY "+TimeTableRowsContract.rowNumber +";");
+            //System.out.println(model.getTimeTableId());
+            //psmt.clearParameters();
+            //psmt.setInt(1, model.getTimeTableId());
+            String sql="SELECT * FROM "+TimeTableRowsContract.tablename +" WHERE "+TimeTableRowsContract.timeTableId +" = "+model.getTimeTableId()+" ORDER BY "+TimeTableRowsContract.rowNumber +";";
+            Cursor rs=db.rawQuery(sql,null);
+            int counter=0;
+            while(rs.moveToNext()) {
+                rowValues.set(counter, rs.getString(rs.getColumnIndex(TimeTableRowsContract.rowName)));
+                counter++;
+            }
+            //loading the period values from and to
+            sql="SELECT * FROM "+TimeTableperiodsContract.tablename+" WHERE "+TimeTableperiodsContract.timeTableId+"="+model.getTimeTableId()+" ORDER BY "+TimeTableperiodsContract.periodNumber+";";
+            ArrayList<PeriodTimeModel> periods=model.getPeriodTimes();
+            rs=db.rawQuery(sql,null);
+            counter=0;
+            while(rs.moveToNext()) {
+                //System.out.println(new Time(1,1,1));
+                periods.get(counter).setFrom(new Time(rs.getLong(rs.getColumnIndex(TimeTableperiodsContract.fromTime))));
+                periods.get(counter).setTo(new Time(rs.getLong(rs.getColumnIndex(TimeTableperiodsContract.toTime))));
+                //System.out.println(rs.getTime("FROMTIME")+"::"+rs.getTime("TOTIME"));
+                counter++;
+            }
+            // loading the values of the days periods know
+            for(int i=0;i<6;i++) {
+                sql="SELECT * FROM "+TimeTableValuesContract.tableName+" WHERE "+TimeTableValuesContract.timeTableId+"="+model.getTimeTableId()+" AND "+TimeTableValuesContract.dayId+"="+(i+1)+" ;";
+                ArrayList<RowModel> rowvalues=model.getTimeTableValues().get(days[i]);
+                //rs=stmt.executeQuery(sql);
+                //System.out.println(days[i]+":"+rs);
+                rs=db.rawQuery(sql,null);
+                while(rs.moveToNext()) {
+                    int rowNumber=rs.getInt(rs.getColumnIndex(TimeTableValuesContract.rowNumber));
+                    int periodNumber=rs.getInt(rs.getColumnIndex(TimeTableValuesContract.periodNumber));
+                    String rvalue=rs.getString(rs.getColumnIndex(TimeTableValuesContract.value));
+                    rowvalues.get(periodNumber-1).getRowValues().set(rowNumber-1, rvalue);
+                    //Sy//stem.out.println(days[i]+" period"+periodNumber+" rowvalue"+rowNumber+" value="+rvalue);
+                }
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            db.close();
+        }
+    }
+
+    public void loadTheDataForATimeTable(String timetableName, TimeTableModel model,SQLiteDatabase db) {
         try {
             ArrayList<String> rowValues=model.getRowNames();
             //Statement stmt=con.createStatement();
@@ -190,11 +287,13 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             if(rs.moveToNext()) {
                 return rs.getInt(rs.getColumnIndex(TimeTableContract.timeTableId));
             }
+            db.close();
             return -1;
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        db.close();
         return -1;
     }
 
@@ -310,13 +409,14 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
         String sql="UPDATE "+TimeTableContract.tableName+" SET "+TimeTableContract.tableName+"=? WHERE "+TimeTableContract.timeTableId+"=? ; ";
         try {
             //Statement stmt=con.createStatement();
-            sql="UPDATE "+TimeTableContract.tableName+" SET "+TimeTableContract.tableName+"='"+newTimetablename+"' WHERE "+TimeTableContract.timeTableId+"="+timetableId+" ; ";
+            sql="UPDATE "+TimeTableContract.tableName+" SET "+TimeTableContract.timeTableName+"='"+newTimetablename+"' WHERE "+TimeTableContract.timeTableId+"="+timetableId+" ; ";
 			/*PreparedStatement psmt=con.prepareStatement(sql);
 			psmt.clearParameters();
 			psmt.setString(1, newTimetablename);
 			psmt.setInt(2, timetableId);
 			psmt.executeUpdate();
 			*/
+            System.out.println(sql);
             db.execSQL(sql);
         }catch(Exception e) {
             e.printStackTrace();
@@ -397,8 +497,8 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             if(newTimeTableid!=-1 && updateTimeTable.getTimeTableId()!=newTimeTableid) {
                 throw new Exception("Timetable with timetable name "+updateTimeTable.getTimeTableName()+" already present");
             }
-            TimeTableModel existingmodel=this.getTheModelFortheLoadingOfData(updateTimeTable.getTimeTableId());
-            loadTheDataForATimeTable(existingmodel.getTimeTableName(),existingmodel);
+            TimeTableModel existingmodel=this.getTheModelFortheLoadingOfData(updateTimeTable.getTimeTableId(),db);
+            loadTheDataForATimeTable(existingmodel.getTimeTableName(),existingmodel,db);
             if(!existingmodel.getTimeTableName().equals(updateTimeTable.getTimeTableName())) {
 
                 updateTheTableName(updateTimeTable.getTimeTableName(),existingmodel.getTimeTableId(),db);
@@ -447,7 +547,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             System.out.println("Successfully updated");
         }catch(Exception e) {
             e.printStackTrace();
-            db.endTransaction();
+            //db.endTransaction();
             throw new Exception(e.getMessage());
         }finally {
             if(db!=null) {

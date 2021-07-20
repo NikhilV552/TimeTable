@@ -28,6 +28,7 @@ import com.narendra.timetable.Database.DatabaseTimeTableHelper;
 import com.narendra.timetable.Fragment.TimeTableFragment;
 import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
+import com.narendra.timetable.exampleDemo.GenerateModelData;
 
 import java.util.ArrayList;
 
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBar);
         progressLayout=findViewById(R.id.progressLayout);
 
+
+
+
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Timetable");
@@ -68,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         Menu menu=navigationView.getMenu();
         DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(this);
+        //TimeTableModel model= GenerateModelData.generateData("T_1",3,9);
+        //timeTableHelper.createTable(model);
         ArrayList<String> timeTableNames=timeTableHelper.getAllTimeTableNamesPresent();
-
+        System.out.println(timeTableNames);
         for(String item: timeTableNames)
             menu.add(R.id.group,Menu.FIRST,Menu.FIRST+timeTableNames.indexOf(item),item);
 
@@ -127,23 +133,4 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
-    public void showTimeTablePeriodValues(View v){
-        Log.d("UPDATED VALUE",model1.toString());
-    }
-
-    public void updateTheTimeTable(View v){
-        /*DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(this);
-        try {
-            helper.updateTheTimeTable(model1);
-            Toast.makeText(this, "TimeTable "+ model1.getTimeTableName()+" updated successfully", Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }*/
-        Intent i=new Intent(this,EditTimeTableActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putInt("TIMETABLEID",model1.getTimeTableId());
-        bundle.putBoolean("isNew",false);
-        i.putExtras(bundle);
-        startActivity(i);
-    }
 }

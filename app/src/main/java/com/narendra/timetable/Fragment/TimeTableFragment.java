@@ -1,5 +1,6 @@
 package com.narendra.timetable.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.narendra.timetable.Activity.EditTimeTableActivity;
 import com.narendra.timetable.Adapter.DayAdapter;
 import com.narendra.timetable.Adapter.PeriodAdapter;
 import com.narendra.timetable.Database.DatabaseTimeTableHelper;
@@ -86,5 +88,13 @@ public class TimeTableFragment extends Fragment {
 
         return view;
 
+    }
+    public void updateTheTimeTable(View v){
+        Intent i=new Intent(getContext(), EditTimeTableActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putInt("TIMETABLEID",model1.getTimeTableId());
+        bundle.putBoolean("isNew",false);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 }

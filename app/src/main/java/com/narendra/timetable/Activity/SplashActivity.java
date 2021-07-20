@@ -7,7 +7,9 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.narendra.timetable.Database.DatabaseTimeTableHelper;
+import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
+import com.narendra.timetable.exampleDemo.GenerateModelData;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,6 +21,9 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                /*DatabaseTimeTableHelper timeTableHelper=new DatabaseTimeTableHelper(SplashActivity.this);
+                TimeTableModel model= GenerateModelData.generateData("T_1",3,9);
+                timeTableHelper.createTable(model);*/
                 int len=helper.getAllTimeTableNamesPresent().size();
                 if(len!=0)
                     startActivity(new Intent(SplashActivity.this,MainActivity.class));

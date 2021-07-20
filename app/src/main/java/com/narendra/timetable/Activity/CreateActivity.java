@@ -1,21 +1,24 @@
 package com.narendra.timetable.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.narendra.timetable.R;
+import com.narendra.timetable.util.CreateTableParamaters;
 
 public class CreateActivity extends AppCompatActivity {
 Toolbar toolbar;
-TextInputEditText tableName;
-TextInputEditText noPeriod;
-TextInputEditText noRow;
+EditText tableName;
+EditText noPeriod;
+EditText noRow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +39,37 @@ TextInputEditText noRow;
         }
     }
     public void create(View view){
-        System.out.println(tableName.getEditableText().toString());
-        System.out.println(noPeriod.getEditableText().toString());
-        System.out.println(noRow.getEditableText().toString());
+        String timeTableName=tableName.getText().toString();
+        String period=noPeriod.getText().toString();
+        String row=noRow.getText().toString();
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setPositiveButton("Ok", null);
+        if(timeTableName.isEmpty()){
+            builder.setTitle("Table Name cannot be empty !");
+            builder.create();
+            builder.show();
+        }
+        else if(period.isEmpty()){
+            builder.setTitle("Number of Periods cannot be empty !");
+            builder.create();
+            builder.show();
+        }
+        else if(row.isEmpty()) {
+            builder.setTitle("Number of Rows cannot be empty !");
+            builder.create();
+            builder.show();
+        }
+        else {
+            Intent i = new Intent(this, EditTimeTableActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(CreateTableParamaters.TimeTableName.toString(), timeTableName);
+            bundle.putInt(CreateTableParamaters.NumberOfPeriods.toString(), Integer.parseInt(period));
+            bundle.putInt(CreateTableParamaters.NumberOfRows.toString(), Integer.parseInt(row));
+            bundle.putBoolean(CreateTableParamaters.isNew.toString(), true);
+            i.putExtras(bundle);
+            startActivity(i);
+            finish();
+        }
     }
     public void back(View view){
         onBackPressed();

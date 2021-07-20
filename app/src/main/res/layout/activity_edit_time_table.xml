@@ -88,26 +88,33 @@
             />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_below="@+id/noRow"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="horizontal"
-            >
+            android:gravity="center"
+            android:layout_height="wrap_content">
             <Button
+                android:id="@+id/create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Log value"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="5dp"
-                android:onClick="logUpdatedvalues"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SAVE THE TIME TABLE"
+                android:text="Save"
                 android:onClick="saveTheTimeTable"
+                android:layout_marginEnd="50dp"
+                android:backgroundTint="#179C52"
                 />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:onClick="back"
+                android:layout_marginStart="50dp"
+                android:backgroundTint="#F7B529"
+                />
+        </LinearLayout>
+
 
         </LinearLayout>
     </LinearLayout>
 
-
-</LinearLayout>

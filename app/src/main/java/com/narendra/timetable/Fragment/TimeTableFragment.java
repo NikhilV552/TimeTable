@@ -85,6 +85,5 @@ public class TimeTableFragment extends Fragment {
             }
         });
         return view;
-
     }
 }

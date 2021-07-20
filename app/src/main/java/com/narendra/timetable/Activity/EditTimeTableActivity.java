@@ -1,9 +1,17 @@
 package com.narendra.timetable.Activity;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,17 +27,6 @@ import com.narendra.timetable.Model.TimeTableModel;
 import com.narendra.timetable.R;
 import com.narendra.timetable.exampleDemo.GenerateModelData;
 import com.narendra.timetable.util.CreateTableParamaters;
-
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +60,13 @@ public class EditTimeTableActivity extends AppCompatActivity {
             model1=helper.getTheModelFortheLoadingOfData(timeTableId);
             helper.loadTheDataForATimeTable(model1.getTimeTableName(),model1);
         }
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(model1.getTimeTableName());
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0504AA")));
+        }
 
         recyclerPeriod=findViewById(R.id.recyclerPeriod);
         recyclerDay=findViewById(R.id.recyclerDay);
@@ -95,14 +99,6 @@ public class EditTimeTableActivity extends AppCompatActivity {
                 model1.setTimeTableName(s.toString());
             }
         });
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(model1.getTimeTableName());
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0504AA")));
-        }
-
         /*
         DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(this);
         try {
@@ -131,6 +127,17 @@ public class EditTimeTableActivity extends AppCompatActivity {
         }catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+        finally {
+            finish();
+        }
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+    public  void back(View view){
+        onBackPressed();
     }
 
     public void logUpdatedvalues(View view){

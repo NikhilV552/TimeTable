@@ -36,8 +36,20 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
         return tableNames;
     }
 
-    public int getMaxIndex(){
+    public void deleteTimeTable(int timetableid){
         SQLiteDatabase db=this.getWritableDatabase();
+        String sql="DELETE FROM "+TimeTableContract.tableName+" WHERE "+TimeTableContract.timeTableId+"="+timetableid+";";
+        db.execSQL(sql);
+        sql="DELETE FROM "+TimeTableperiodsContract.tablename+" WHERE "+TimeTableperiodsContract.timeTableId+"="+timetableid+";";
+        db.execSQL(sql);
+        sql="DELETE FROM "+TimeTableRowsContract.tablename+" WHERE "+TimeTableRowsContract.timeTableId+"="+timetableid+";";
+        db.execSQL(sql);
+        sql="DELETE FROM "+TimeTableValuesContract.tableName+" WHERE "+TimeTableValuesContract.timeTableId+"="+timetableid+";";
+        db.execSQL(sql);
+        db.close();
+    }
+
+    public int getMaxIndex(SQLiteDatabase db){
         String query="SELECT MAX("+TimeTableContract.timeTableId+") AS MAXID  FROM "+TimeTableContract.tableName+";";
         Cursor corsor=db.rawQuery(query,null);
         if(!corsor.moveToNext()){
@@ -45,7 +57,6 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
             return 0;
         }else{
             System.out.println("MAXID="+corsor.getInt(corsor.getColumnIndex("MAXID")));
-            db.close();
             return corsor.getInt(corsor.getColumnIndex("MAXID"));
         }
     }
@@ -242,7 +253,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
     }
 
     public void insertNewTimeTable(String timetableName,int numberOfPeriods,int numberOfRows,SQLiteDatabase db) throws Exception {
-        int maxid=this.getMaxIndex();
+        int maxid=this.getMaxIndex(db);
         //String sql="INSERT INTO "+TimeTableContract.tableName+"("+TimeTableContract.timeTableId+","+TimeTableContract.timeTableName+","+TimeTableContract.numberOfperiods+","+TimeTableContract.numberOfRows+") VALUES("+(maxid+1)+",'"+timetableName+"',"+numberOfPeriods+","+numberOfRows+");";
         String sql="INSERT INTO TIMETABLE(_ID,TIMETABLENAME,NUMBEROFPERIODAPERDAY,NUMBEROFROWS) VALUES("+(maxid+1)+",'"+timetableName+"',"+numberOfPeriods+","+numberOfRows+");";
         //PreparedStatement psmt=con.prepareStatement(sql);
@@ -385,6 +396,7 @@ public class DatabaseTimeTableHelper extends SQLiteOpenHelper {
 
         }catch(Exception e) {
             try {
+                e.printStackTrace();
                 db.endTransaction();
             } catch (Exception e1) {
                 // TODO Auto-generated catch block

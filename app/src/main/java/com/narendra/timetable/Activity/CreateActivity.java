@@ -66,6 +66,7 @@ EditText noRow;
             bundle.putInt(CreateTableParamaters.NumberOfPeriods.toString(), Integer.parseInt(period));
             bundle.putInt(CreateTableParamaters.NumberOfRows.toString(), Integer.parseInt(row));
             bundle.putBoolean(CreateTableParamaters.isNew.toString(), true);
+            bundle.putInt(CreateTableParamaters.TimeTableId.toString(),-1);
             i.putExtras(bundle);
             startActivity(i);
             finish();

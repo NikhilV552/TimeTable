@@ -39,13 +39,28 @@
                 </RelativeLayout>
             </ScrollView>
     </HorizontalScrollView>
-    <Button
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:id="@+id/updateTimeTable"
-        android:backgroundTint="#FF3E30"
-        android:text="Edit"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:id="@+id/updateTimeTable"
+            android:backgroundTint="#4F30FF"
+            android:text="EDIT"
+            />
+        <Button
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:id="@+id/deleteBtn"
+            android:backgroundTint="#FF3E30"
+            android:text="DELETE"
+            />
+    </LinearLayout>
 </LinearLayout>

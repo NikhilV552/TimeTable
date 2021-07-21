@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.narendra.timetable.Activity.EditTimeTableActivity;
+import com.narendra.timetable.Activity.SplashActivity;
 import com.narendra.timetable.Adapter.DayAdapter;
 import com.narendra.timetable.Adapter.PeriodAdapter;
 import com.narendra.timetable.Database.DatabaseTimeTableHelper;
@@ -33,6 +34,7 @@ public class TimeTableFragment extends Fragment {
     private boolean isEdit;
     TimeTableModel model1;
     Button updateButton;
+    Button deleteButton;
 
     public int getTimeTableId(){
         return this.model1.getTimeTableId();
@@ -55,6 +57,7 @@ public class TimeTableFragment extends Fragment {
         recyclerPeriod=view.findViewById(R.id.recyclerPeriod);
         recyclerDay=view.findViewById(R.id.recyclerDay);
         updateButton=view.findViewById(R.id.updateTimeTable);
+        deleteButton=view.findViewById(R.id.deleteBtn);
 
 
         String timeTablename=getArguments().getString("tableName");
@@ -82,6 +85,22 @@ public class TimeTableFragment extends Fragment {
                 bundle.putBoolean(CreateTableParamaters.isNew.toString(),false);
                 i.putExtras(bundle);
                 startActivity(i);
+            }
+        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Going to delete"+":"+model1.getTimeTableName(), Toast.LENGTH_SHORT).show();
+                DatabaseTimeTableHelper helper=new DatabaseTimeTableHelper(getContext());
+                try{
+                    helper.deleteTimeTable(model1.getTimeTableId());
+                    Intent i=new Intent(getContext(), SplashActivity.class);
+                    Toast.makeText(getContext(), "Successfully deleted", Toast.LENGTH_SHORT).show();
+                    startActivity(i);
+                }catch (Exception e){
+                    Toast.makeText(getContext(), "Sorru could not delete due to :"+e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         return view;

@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createNewTimeTable(View view){
         Intent i=new Intent(this,CreateActivity.class);
+
         startActivity(i);
     }
 

@@ -89,7 +89,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_below="@+id/noRow"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
@@ -97,7 +97,8 @@
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/create"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Save"
                 android:onClick="saveTheTimeTable"
@@ -105,7 +106,8 @@
                 android:backgroundTint="#179C52"
                 />
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Back"
                 android:onClick="back"

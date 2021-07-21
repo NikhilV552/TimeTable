@@ -60,6 +60,22 @@ EditText noRow;
             builder.show();
         }
         else {
+            try{
+                Integer.parseInt(period);
+            }catch(Exception e){
+                builder.setTitle("Number of periods should be integer !");
+                builder.create();
+                builder.show();
+                return ;
+            }
+            try{
+                Integer.parseInt(row);
+            }catch (Exception e){
+                builder.setTitle("Number of rows should be integer !");
+                builder.create();
+                builder.show();
+                return ;
+            }
             Intent i = new Intent(this, EditTimeTableActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(CreateTableParamaters.TimeTableName.toString(), timeTableName);

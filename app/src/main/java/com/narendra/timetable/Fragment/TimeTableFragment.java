@@ -96,7 +96,9 @@ public class TimeTableFragment extends Fragment {
                     helper.deleteTimeTable(model1.getTimeTableId());
                     Intent i=new Intent(getContext(), SplashActivity.class);
                     Toast.makeText(getContext(), "Successfully deleted", Toast.LENGTH_SHORT).show();
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
+                    getActivity().finish();
                 }catch (Exception e){
                     Toast.makeText(getContext(), "Sorru could not delete due to :"+e.getMessage(), Toast.LENGTH_LONG).show();
                 }

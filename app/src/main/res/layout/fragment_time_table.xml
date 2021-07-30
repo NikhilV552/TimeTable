@@ -22,11 +22,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/design_default_color_secondary">
+                    android:background="#000000">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerPeriod"
-                        android:layout_margin="0dp"
                         android:layout_width="match_parent"
                         android:layout_height="108dp"/>
 

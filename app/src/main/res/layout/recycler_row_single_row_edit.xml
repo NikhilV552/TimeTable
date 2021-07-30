@@ -14,6 +14,7 @@
         android:textSize="14sp"
         android:background="#D3D3D3"
         android:gravity="center"
+        android:textCursorDrawable="@null"
         android:textAlignment="center"
         android:scrollHorizontally="true"
         android:singleLine="true"

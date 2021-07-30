@@ -35,7 +35,7 @@ public class RowNamesEditAdapter extends RecyclerView.Adapter<RowNamesEditAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RowNamesEditAdapter.ViewHolder holder, int position) {
-        holder.getRowText().setText("ROW"+(position+1));
+        holder.getRowText().setText("ROW"+(position+1)+" : ");
         holder.getRowName().setText(rowNames.get(position));
         holder.getRowName().setHint("Enter the row name of row "+(position+1));
         holder.getRowName().addTextChangedListener(new TextWatcher() {

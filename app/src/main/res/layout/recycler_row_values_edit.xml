@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="ROW 1"
+        android:text="ROW 1 : "
         android:textSize="15sp"
         android:textColor="#ff00ff"
         android:layout_marginLeft="10dp"
@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="VALUE"
+        android:textCursorDrawable="@null"
         android:textSize="15sp"
         android:hint="Enter The Row Name here"
         android:layout_marginRight="8dp"

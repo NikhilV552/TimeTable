@@ -2,13 +2,10 @@ package com.narendra.timetable.Adapter;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -62,7 +59,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.ViewHolder
             }else{
                 holder.getFromEdit().setText(localDataSet.get(0).getFrom().toString());
                 holder.getToEdit().setText(localDataSet.get(0).getTo().toString());
-                holder.getPeriod().setText("PERIOD123");
+                holder.getPeriod().setText("PERIOD1");
                 holder.getToEdit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

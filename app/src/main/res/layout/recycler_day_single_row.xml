@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:text="Monday"
         android:textSize="12sp"
-        android:padding="5dp"
+        android:height="24sp"
         android:textAlignment="center"
         android:gravity="center"
         android:background="#D3D3D3"

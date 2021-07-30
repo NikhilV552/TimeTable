@@ -63,7 +63,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/design_default_color_secondary">
+                    android:background="@color/black">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerPeriod"

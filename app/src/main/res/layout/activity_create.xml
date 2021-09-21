@@ -33,6 +33,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:inputType="text"
             android:id="@+id/timeTableName"
             android:layout_height="wrap_content"
             />
@@ -51,6 +52,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:id="@+id/noPeriod"
+            android:inputType="number"
             android:layout_height="wrap_content"
             />
 
@@ -68,6 +70,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:id="@+id/noRow"
+            android:inputType="number"
             android:layout_height="wrap_content"
             />
 

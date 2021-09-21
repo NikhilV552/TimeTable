@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/timetable_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeTable">
-        <activity android:name=".Activity.EditTimeTableActivity"/>
+        <activity android:name=".Activity.EditTimeTableActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Activity.CreateActivity" />
         <activity android:name=".Activity.SplashActivity" >
             <intent-filter>

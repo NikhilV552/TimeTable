@@ -64,29 +64,32 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/black">
+                    >
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerPeriod"
                         android:layout_margin="0dp"
                         android:layout_width="match_parent"
-                        android:layout_height="108dp"/>
+                        android:layout_height="108dp"
+                        android:background="@color/black"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:id="@+id/recyclerDay"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/recyclerPeriod"
+                        android:background="@color/black"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_below="@+id/recyclerDay"
+                        android:id="@+id/recyclerRowNames"
                         />
                 </RelativeLayout>
             </ScrollView>
         </HorizontalScrollView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="125dp"
-            android:layout_below="@+id/recyclerDay"
-            android:id="@+id/recyclerRowNames"
-            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_below="@+id/noRow"
